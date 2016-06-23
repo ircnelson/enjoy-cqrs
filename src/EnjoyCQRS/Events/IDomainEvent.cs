@@ -32,18 +32,8 @@ namespace EnjoyCQRS.Events
     public interface IDomainEvent
     {
         /// <summary>
-        /// Domain Event Unique identifier.
-        /// </summary>
-        Guid Id { get; }
-
-        /// <summary>
         /// Aggregate Unique identifier.
         /// </summary>
         Guid AggregateId { get; }
-
-        /// <summary>
-        /// Event version.
-        /// </summary>
-        int Version { get; }
     }
 }
