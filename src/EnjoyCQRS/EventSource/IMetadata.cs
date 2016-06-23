@@ -20,22 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
 
-namespace EnjoyCQRS.Collections
+namespace EnjoyCQRS.EventSource
 {
     /// <summary>
-    /// Represents collection of events.
+    /// Store the event metadatas.
+    /// Some avaliable keys: <see cref="MetadataKeys"/>.
     /// </summary>
-    public abstract class DomainEventCollection : HashSet<IDomainEvent>, IDomainEventCollection
+    public interface IMetadata : IReadOnlyDictionary<string, string>
     {
-        protected DomainEventCollection(IEnumerable<IDomainEvent> events)
-        {
-            foreach (var @event in events)
-            {
-                Add(@event);
-            }
-        }
+        /// <summary>
+        /// Get the stored value.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string GetValue(string key);
+
+        /// <summary>
+        /// Get the value, convert it using the <paramref name="converter"/> function and return the type specified.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        T GetValue<T>(string key, Func<string, T> converter);
     }
 }

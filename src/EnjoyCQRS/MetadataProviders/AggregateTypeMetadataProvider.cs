@@ -1,6 +1,6 @@
-// The MIT License (MIT)
+ï»¿// The MIT License (MIT)
 // 
-// Copyright (c) 2016 Nelson Corrêa V. Júnior
+// Copyright (c) 2016 Nelson CorrÃªa V. JÃºnior
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,18 +24,15 @@ using System.Collections.Generic;
 using EnjoyCQRS.Events;
 using EnjoyCQRS.EventSource;
 
-namespace EnjoyCQRS.Collections
+namespace EnjoyCQRS.MetadataProviders
 {
-    /// <summary>
-    /// Represents collection of uncommited events.
-    /// </summary>
-    public class UncommitedDomainEventCollection : DomainEventCollection
+    public class AggregateTypeMetadataProvider : IMetadataProvider
     {
-        public AggregateMetadata AggregateMetadata { get; }
-
-        public UncommitedDomainEventCollection(AggregateMetadata aggregateMetadata, IEnumerable<IDomainEvent> events) : base(events)
+        public IEnumerable<KeyValuePair<string, string>> Provide<TAggregate>(TAggregate aggregate, IDomainEvent @event, IMetadata metadata) where TAggregate : IAggregate
         {
-            AggregateMetadata = aggregateMetadata;
+            yield return new KeyValuePair<string, string>(MetadataKeys.AggregateId, aggregate.Id.ToString());
+            yield return new KeyValuePair<string, string>(MetadataKeys.AggregateSequenceNumber, aggregate.Sequence.ToString());
+            yield return new KeyValuePair<string, string>(MetadataKeys.AggregateTypeFullname, aggregate.GetType().FullName);
         }
     }
 }

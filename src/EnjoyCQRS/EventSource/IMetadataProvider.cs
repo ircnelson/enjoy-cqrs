@@ -1,6 +1,6 @@
-// The MIT License (MIT)
+ï»¿// The MIT License (MIT)
 // 
-// Copyright (c) 2016 Nelson Corrêa V. Júnior
+// Copyright (c) 2016 Nelson CorrÃªa V. JÃºnior
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace EnjoyCQRS.Events
+using System.Collections.Generic;
+using EnjoyCQRS.Events;
+
+namespace EnjoyCQRS.EventSource
 {
-    public class UncommitedDomainEvent : DomainEvent
+    public interface IMetadataProvider
     {
-        public IDomainEvent OriginalEvent { get; }
-
-        public UncommitedDomainEvent(IDomainEvent originalEvent, int eventVersion) : base(originalEvent.AggregateId)
-        {
-            Id = originalEvent.Id;
-            OriginalEvent = originalEvent;
-
-            if (originalEvent is DomainEvent) ((DomainEvent) OriginalEvent).Version = eventVersion;
-        }
+        /// <summary>
+        /// Provides a collection of key pair value that will be used to generate event metadata on the save moment.
+        /// </summary>
+        /// <typeparam name="TAggregate"></typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="event"></param>
+        /// <param name="metadata"></param>
+        /// <returns></returns>
+        IEnumerable<KeyValuePair<string, string>> Provide<TAggregate>(TAggregate aggregate, IDomainEvent @event, IMetadata metadata)
+            where TAggregate : IAggregate;
     }
 }

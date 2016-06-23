@@ -1,6 +1,6 @@
-// The MIT License (MIT)
+ï»¿// The MIT License (MIT)
 // 
-// Copyright (c) 2016 Nelson Corrêa V. Júnior
+// Copyright (c) 2016 Nelson CorrÃªa V. JÃºnior
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,12 @@ using System;
 
 namespace EnjoyCQRS.EventSource
 {
-    /// <summary>
-    /// Aggregate metadata.
-    /// </summary>
-    public class AggregateMetadata
+    public interface ISerializedEvent
     {
-        public Guid Id { get; }
-        public Type Type { get; }
-
-        public AggregateMetadata(Guid id, Type type)
-        {
-            Id = id;
-            Type = type;
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() + Type.GetHashCode();
-        }
+        Guid AggregateId { get; }
+        int AggregateVersion { get; }
+        string SerializedMetadata { get; }
+        string SerializedData { get; }
+        IMetadata Metadata { get; }
     }
 }

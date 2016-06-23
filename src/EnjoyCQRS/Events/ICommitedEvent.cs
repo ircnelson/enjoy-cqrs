@@ -20,15 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Generic;
-using EnjoyCQRS.Events;
+using System;
 
-namespace EnjoyCQRS.Collections
+namespace EnjoyCQRS.Events
 {
-    /// <summary>
-    /// Represents collection of events.
-    /// </summary>
-    public interface IDomainEventCollection : IEnumerable<IDomainEvent>
+    public interface ICommitedEvent
     {
+        Guid AggregateId { get; }
+        int AggregateVersion { get; }
+        string SerializedMetadata { get; }
+        string SerializedData { get; }
     }
 }
