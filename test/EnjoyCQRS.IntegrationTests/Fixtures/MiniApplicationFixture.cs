@@ -24,7 +24,7 @@ namespace EnjoyCQRS.IntegrationTests.Fixtures
         public IContainer Container { get; private set; }
         public EventStoreSqlite EventStore { get; set; }
 
-        public IntervalSnapshotStrategy SnapshotStrategy { get; set; } = new IntervalSnapshotStrategy(5);
+        public IntervalSnapshotStrategy SnapshotStrategy { get; set; } = new IntervalSnapshotStrategy();
 
         public MiniApplicationFixture()
         {

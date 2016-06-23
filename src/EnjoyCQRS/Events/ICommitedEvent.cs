@@ -28,7 +28,7 @@ namespace EnjoyCQRS.Events
     {
         Guid AggregateId { get; }
         int AggregateVersion { get; }
-        string SerializedMetadata { get; }
         string SerializedData { get; }
+        string SerializedMetadata { get; }
     }
 }

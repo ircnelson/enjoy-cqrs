@@ -82,8 +82,8 @@
     <Compile Include="Stubs\ApplicationLayer\ChangeNameCommand.cs" />
     <Compile Include="Stubs\ApplicationLayer\ChangeNameCommandHandler.cs" />
     <Compile Include="Extensions\CustomRegistrationExtensions.cs" />
-    <Compile Include="Stubs\ApplicationLayer\ChangePlayerName.cs" />
-    <Compile Include="Stubs\ApplicationLayer\ChangePlayerNameHandler.cs" />
+    <Compile Include="Stubs\ApplicationLayer\FloodChangePlayerName.cs" />
+    <Compile Include="Stubs\ApplicationLayer\FloodChangePlayerNameHandler.cs" />
     <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommand.cs" />
     <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommandHandler.cs" />
     <Compile Include="Stubs\DomainLayer\PlayerChangedName.cs" />

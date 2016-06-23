@@ -45,14 +45,6 @@ namespace EnjoyCQRS.EventSource
             var value = this[key];
             return converter(value);
         }
-
-        public static Metadata Create(string key, string value)
-        {
-            return new Metadata(new []
-            {
-                new KeyValuePair<string, string>(key, value)
-            });
-        }
     }
 
     public struct MetadataKeys
