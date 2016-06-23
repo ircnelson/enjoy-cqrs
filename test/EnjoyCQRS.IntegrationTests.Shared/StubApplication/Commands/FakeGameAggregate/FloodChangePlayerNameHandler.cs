@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using EnjoyCQRS.Commands;
 using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.IntegrationTests.Stubs.DomainLayer;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FakeGameAggregate;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs.ApplicationLayer
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FakeGameAggregate
 {
     public class FloodChangePlayerNameHandler : ICommandHandler<FloodChangePlayerName>
     {

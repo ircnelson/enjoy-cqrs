@@ -2,7 +2,7 @@
 using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Snapshots;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs.DomainLayer
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FakeGameAggregate
 {
     public class FakeGame : SnapshotAggregate<FakeGameSnapshot>
     {

@@ -43,6 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FooAssembler.cs" />
+    <Compile Include="StubApplication\Commands\FakeGameAggregate\CreateFakeGameCommand.cs" />
+    <Compile Include="StubApplication\Commands\FakeGameAggregate\CreateFakeGameCommandHandler.cs" />
+    <Compile Include="StubApplication\Commands\FakeGameAggregate\FloodChangePlayerName.cs" />
+    <Compile Include="StubApplication\Commands\FakeGameAggregate\FloodChangePlayerNameHandler.cs" />
+    <Compile Include="StubApplication\Commands\FooAggregate\CreateFooCommand.cs" />
+    <Compile Include="StubApplication\Commands\FooAggregate\CreateFooCommandHandler.cs" />
+    <Compile Include="StubApplication\Commands\FooAggregate\DoSomethingCommand.cs" />
+    <Compile Include="StubApplication\Commands\FooAggregate\DoSomethingCommandHandler.cs" />
+    <Compile Include="StubApplication\Domain\FakeGameAggregate\FakeGame.cs" />
+    <Compile Include="StubApplication\Domain\FakeGameAggregate\FakeGameCreated.cs" />
+    <Compile Include="StubApplication\Domain\FakeGameAggregate\PlayerChangedName.cs" />
+    <Compile Include="StubApplication\Domain\FooAggregate\DidSomething.cs" />
+    <Compile Include="StubApplication\Domain\FooAggregate\Foo.cs" />
+    <Compile Include="StubApplication\Domain\FooAggregate\FooCreated.cs" />
+    <Compile Include="StubApplication\Domain\FooAggregate\FooSnapshot.cs" />
+    <Compile Include="StubApplication\EventHandlers\FooCreatedHandler.cs" />
     <Compile Include="CustomCommitedEvent.cs" />
     <Compile Include="JsonTextSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +73,7 @@
       <Name>EnjoyCQRS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

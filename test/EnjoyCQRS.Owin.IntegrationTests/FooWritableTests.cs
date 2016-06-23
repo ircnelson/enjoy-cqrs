@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.IntegrationTests.Shared;
 using EnjoyCQRS.Owin.IntegrationTests.Infrastructure;
 using FluentAssertions;
 using Microsoft.Owin.Testing;

@@ -5,8 +5,10 @@ using EnjoyCQRS.Commands;
 using EnjoyCQRS.EventSource.Snapshots;
 using EnjoyCQRS.EventSource.Storage;
 using EnjoyCQRS.IntegrationTests.Fixtures;
-using EnjoyCQRS.IntegrationTests.Stubs.ApplicationLayer;
-using EnjoyCQRS.IntegrationTests.Stubs.DomainLayer;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FakeGameAggregate;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FooAggregate;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FakeGameAggregate;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FooAggregate;
 using EnjoyCQRS.MessageBus;
 using FluentAssertions;
 using Xunit;
@@ -31,17 +33,16 @@ namespace EnjoyCQRS.IntegrationTests
         {
             using (var scope = _fixture.Container.BeginLifetimeScope())
             {
-                var command = new CreateFakePersonCommand(Guid.NewGuid(), "Fake");
+                var command = new CreateFooCommand(Guid.NewGuid());
 
                 DoDispatch(scope, command);
                 
                 var repository = scope.Resolve<IRepository>();
                 
-                var aggregateFromRepository = await repository.GetByIdAsync<FakePerson>(command.AggregateId).ConfigureAwait(false);
+                var aggregateFromRepository = await repository.GetByIdAsync<Foo>(command.AggregateId).ConfigureAwait(false);
 
                 aggregateFromRepository.Should().NotBeNull();
-
-                aggregateFromRepository.Name.Should().Be(command.Name);
+                
                 aggregateFromRepository.Id.Should().Be(command.AggregateId);
             }
         }

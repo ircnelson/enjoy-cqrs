@@ -119,15 +119,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Domain\FooAggregate\DidSomething.cs" />
-    <Compile Include="Application\Commands\DoSomethingCommand.cs" />
-    <Compile Include="Application\Commands\DoSomethingCommandHandler.cs" />
-    <Compile Include="Application\Domain\FooAggregate\Foo.cs" />
-    <Compile Include="Application\Commands\CreateFooCommand.cs" />
-    <Compile Include="Application\Domain\FooAggregate\FooCreated.cs" />
-    <Compile Include="Application\Commands\CreateFooCommandHandler.cs" />
-    <Compile Include="Application\Domain\FooAggregate\FooSnapshot.cs" />
-    <Compile Include="Application\EventHandlers\FooCreatedHandler.cs" />
     <Compile Include="Infrastructure\AutofacCommandDispatcher.cs" />
     <Compile Include="Controllers\FooWritableController.cs" />
     <Compile Include="Infrastructure\AutofacEventRouter.cs" />

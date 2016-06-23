@@ -1,7 +1,7 @@
 ﻿using System;
 using EnjoyCQRS.Commands;
 
-namespace EnjoyCQRS.Owin.IntegrationTests.Application.Commands
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FooAggregate
 {
     public class DoSomethingCommand : Command
     {

@@ -9,6 +9,10 @@ namespace EnjoyCQRS.UnitTests.Metadata
 {
     public class MetadataProviderTests
     {
+        public const string CategoryName = "Unit";
+        public const string CategoryValue = "Metadata";
+
+        [Trait(CategoryName, CategoryValue)]
         [Fact]
         public void Event_MetadataProvider()
         {
@@ -20,7 +24,8 @@ namespace EnjoyCQRS.UnitTests.Metadata
             
             metadata.Count().Should().Be(2);
         }
-        
+
+        [Trait(CategoryName, CategoryValue)]
         [Fact]
         public void Aggregate_MetadataProvider()
         {
@@ -33,6 +38,7 @@ namespace EnjoyCQRS.UnitTests.Metadata
             metadata.Count().Should().Be(3);
         }
 
+        [Trait(CategoryName, CategoryValue)]
         [Fact]
         public void Should_take_event_name_based_on_attribute()
         {

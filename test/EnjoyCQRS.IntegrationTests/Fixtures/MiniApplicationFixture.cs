@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using Autofac;
 using EnjoyCQRS.Commands;
 using EnjoyCQRS.Core;
@@ -9,10 +7,9 @@ using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Snapshots;
 using EnjoyCQRS.EventSource.Storage;
 using EnjoyCQRS.IntegrationTests.Extensions;
+using EnjoyCQRS.IntegrationTests.Infrastructure;
 using EnjoyCQRS.IntegrationTests.Shared;
 using EnjoyCQRS.IntegrationTests.Sqlite;
-using EnjoyCQRS.IntegrationTests.Stubs;
-using EnjoyCQRS.IntegrationTests.Stubs.DomainLayer;
 using EnjoyCQRS.Logger;
 using EnjoyCQRS.MessageBus;
 using EnjoyCQRS.MessageBus.InProcess;
@@ -53,7 +50,7 @@ namespace EnjoyCQRS.IntegrationTests.Fixtures
                 EventStore = args.Instance;
             });
 
-            var assemblyCommandHandlers = typeof (FakePerson).Assembly;
+            var assemblyCommandHandlers = typeof (FooAssembler).Assembly;
 
             // Command handlers
             var genericCommandHandler = typeof (ICommandHandler<>);

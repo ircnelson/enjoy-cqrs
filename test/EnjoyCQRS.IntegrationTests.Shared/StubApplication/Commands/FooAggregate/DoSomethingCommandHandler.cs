@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using EnjoyCQRS.Commands;
 using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.Owin.IntegrationTests.Application.Domain.FooAggregate;
+using EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FooAggregate;
 
-namespace EnjoyCQRS.Owin.IntegrationTests.Application.Commands
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FooAggregate
 {
     public class DoSomethingCommandHandler : ICommandHandler<DoSomethingCommand>
     {

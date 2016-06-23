@@ -1,6 +1,6 @@
 using EnjoyCQRS.EventSource.Snapshots;
 
-namespace EnjoyCQRS.Owin.IntegrationTests.Application.Domain.FooAggregate
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FooAggregate
 {
     public class FooSnapshot : Snapshot
     {

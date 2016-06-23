@@ -4,7 +4,7 @@ using Autofac;
 using EnjoyCQRS.Events;
 using EnjoyCQRS.MessageBus;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs
+namespace EnjoyCQRS.IntegrationTests.Infrastructure
 {
     public class EventRouter : IEventRouter
     {

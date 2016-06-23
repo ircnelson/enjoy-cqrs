@@ -38,11 +38,11 @@ namespace EnjoyCQRS.Owin.IntegrationTests.Infrastructure
 
             builder.Register(c => EventStore).As<IEventStore>();
             
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            builder.RegisterAssemblyTypes(typeof(FooAssembler).Assembly)
                    .AsClosedTypesOf(typeof(ICommandHandler<>))
                    .AsImplementedInterfaces();
             
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            builder.RegisterAssemblyTypes(typeof(FooAssembler).Assembly)
                    .AsClosedTypesOf(typeof(IEventHandler<>))
                    .AsImplementedInterfaces();
 

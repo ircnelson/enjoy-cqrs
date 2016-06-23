@@ -3,7 +3,7 @@ using Autofac;
 using EnjoyCQRS.Commands;
 using EnjoyCQRS.MessageBus;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs
+namespace EnjoyCQRS.IntegrationTests.Infrastructure
 {
     public class StubCommandDispatcher : CommandDispatcher
     {

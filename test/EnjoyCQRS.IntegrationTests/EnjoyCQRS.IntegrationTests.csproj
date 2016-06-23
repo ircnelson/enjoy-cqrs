@@ -79,28 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fixtures\MiniApplicationFixture.cs" />
-    <Compile Include="Stubs\ApplicationLayer\ChangeNameCommand.cs" />
-    <Compile Include="Stubs\ApplicationLayer\ChangeNameCommandHandler.cs" />
     <Compile Include="Extensions\CustomRegistrationExtensions.cs" />
-    <Compile Include="Stubs\ApplicationLayer\FloodChangePlayerName.cs" />
-    <Compile Include="Stubs\ApplicationLayer\FloodChangePlayerNameHandler.cs" />
-    <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommand.cs" />
-    <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommandHandler.cs" />
-    <Compile Include="Stubs\DomainLayer\PlayerChangedName.cs" />
-    <Compile Include="Stubs\EventRouter.cs" />
+    <Compile Include="Infrastructure\EventRouter.cs" />
     <Compile Include="MiniApplicationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sqlite\EventStoreSqlite.cs" />
     <Compile Include="Sqlite\EventStoreSqliteInitializer.cs" />
-    <Compile Include="Stubs\ApplicationLayer\CreateFakePersonCommand.cs" />
-    <Compile Include="Stubs\ApplicationLayer\CreateFakePersonCommandHandler.cs" />
-    <Compile Include="Stubs\DomainLayer\FakeGame.cs" />
-    <Compile Include="Stubs\DomainLayer\FakeGameCreated.cs" />
-    <Compile Include="Stubs\DomainLayer\FakePerson.cs" />
-    <Compile Include="Stubs\DomainLayer\FakePersonCreated.cs" />
-    <Compile Include="Stubs\ReadModelLayer\FakePersonCreatedEventHandler.cs" />
-    <Compile Include="Stubs\DomainLayer\NameChanged.cs" />
-    <Compile Include="Stubs\StubCommandDispatcher.cs" />
+    <Compile Include="Infrastructure\StubCommandDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using EnjoyCQRS.Commands;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs.ApplicationLayer
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Commands.FakeGameAggregate
 {
     public class FloodChangePlayerName : Command
     {

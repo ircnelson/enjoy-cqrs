@@ -1,7 +1,7 @@
 ﻿using System;
 using EnjoyCQRS.Events;
 
-namespace EnjoyCQRS.IntegrationTests.Stubs.DomainLayer
+namespace EnjoyCQRS.IntegrationTests.Shared.StubApplication.Domain.FakeGameAggregate
 {
     public class FakeGameCreated : DomainEvent
     {
