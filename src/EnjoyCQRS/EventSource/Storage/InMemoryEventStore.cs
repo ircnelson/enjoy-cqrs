@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Collections;
 using EnjoyCQRS.Events;
 using EnjoyCQRS.EventSource.Snapshots;
 
@@ -10,8 +9,11 @@ namespace EnjoyCQRS.EventSource.Storage
 {
     public class InMemoryEventStore : IEventStore
     {
-        public readonly List<ICommitedEvent> Events = new List<ICommitedEvent>();
-        public readonly List<ISnapshot> Snapshots = new List<ISnapshot>();
+        public IReadOnlyList<ICommitedEvent> Events => _events.AsReadOnly();
+        public IReadOnlyList<ISnapshot> Snapshots => _snapshots.AsReadOnly();
+
+        private readonly List<ICommitedEvent> _events = new List<ICommitedEvent>();
+        private readonly List<ISnapshot> _snapshots = new List<ISnapshot>();
 
         private readonly List<ISerializedEvent> _uncommitedEvents = new List<ISerializedEvent>();
 
@@ -58,7 +60,7 @@ namespace EnjoyCQRS.EventSource.Storage
 
             InTransaction = false;
 
-            Events.AddRange(_uncommitedEvents.Select(InstantiateCommitedEvent));
+            _events.AddRange(_uncommitedEvents.Select(InstantiateCommitedEvent));
 
             _uncommitedEvents.Clear();
 
@@ -66,7 +68,7 @@ namespace EnjoyCQRS.EventSource.Storage
 
             foreach (var snapshot in snapshotGrouped)
             {
-                Snapshots.AddRange(snapshot.Snapshots);
+                _snapshots.AddRange(snapshot.Snapshots);
             }
 
             _uncommitedSnapshots.Clear();

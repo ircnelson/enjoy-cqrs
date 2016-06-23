@@ -44,7 +44,7 @@ namespace EnjoyCQRS.Owin.IntegrationTests
             
             aggregateId.Should().NotBeNullOrWhiteSpace();
         }
-
+        
         private TestServer TestServerFactory(IEventStore eventStore)
         {
             var startup = new Startup

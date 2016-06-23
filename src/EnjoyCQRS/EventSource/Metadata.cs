@@ -49,13 +49,15 @@ namespace EnjoyCQRS.EventSource
 
     public struct MetadataKeys
     {
-        internal const string EventIndex = "EventIndex";
         public const string AggregateTypeFullname = "aggregateTypeFullname";
         public const string AggregateId = "aggregateId";
         public const string AggregateSequenceNumber = "aggregateSequenceNumber";
+
         public const string EventId = "eventId";
         public const string EventClrType = "eventClrType";
         public const string EventName = "eventName";
         public const string EventVersion = "eventVersion";
+
+        public const string CorrelationId = "correlationId";
     }
 }

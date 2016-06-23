@@ -40,6 +40,21 @@ namespace EnjoyCQRS.UnitTests.Metadata
 
         [Trait(CategoryName, CategoryValue)]
         [Fact]
+        public void CorrelationId_MetadataProvider()
+        {
+            var stubAggregate = StubAggregate.Create("Test");
+            stubAggregate.ChangeName("Test 1");
+            stubAggregate.ChangeName("Test 2");
+
+            var metadataProvider = new CorrelationIdMetadataProvider();
+
+            var metadatas = stubAggregate.UncommitedEvents.SelectMany(e => metadataProvider.Provide(stubAggregate, e, EventSource.Metadata.Empty));
+            
+            metadatas.Select(e => e.Value).Distinct().Count().Should().Be(1);
+        }
+
+        [Trait(CategoryName, CategoryValue)]
+        [Fact]
         public void Should_take_event_name_based_on_attribute()
         {
             var stubAggregate = StubAggregate.Create("Test");

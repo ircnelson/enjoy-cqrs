@@ -91,6 +91,7 @@
     <Compile Include="Events\IDomainEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="MetadataProviders\AggregateTypeMetadataProvider.cs" />
+    <Compile Include="MetadataProviders\CorrelationIdMetadataProvider.cs" />
     <Compile Include="MetadataProviders\EventTypeMetadataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueObjects\ValueObject.cs" />

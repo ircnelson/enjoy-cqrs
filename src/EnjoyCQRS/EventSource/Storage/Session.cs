@@ -64,7 +64,8 @@ namespace EnjoyCQRS.EventSource.Storage
             metadataProviders = metadataProviders.Concat(new IMetadataProvider[]
             {
                 new AggregateTypeMetadataProvider(),
-                new EventTypeMetadataProvider()
+                new EventTypeMetadataProvider(),
+                new CorrelationIdMetadataProvider()
             });
 
             if (snapshotStrategy == null)
