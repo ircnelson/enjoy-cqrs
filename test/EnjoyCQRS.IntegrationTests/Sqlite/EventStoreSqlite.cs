@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Runtime.Serialization.Formatters;
 using System.Threading.Tasks;
-using EnjoyCQRS.Collections;
 using EnjoyCQRS.Events;
+using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Snapshots;
 using EnjoyCQRS.EventSource.Storage;
 using Newtonsoft.Json;
@@ -54,13 +53,13 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
                 Transaction.Rollback();
         }
 
-        public async Task<IEnumerable<IDomainEvent>> GetAllEventsAsync(Guid id)
+        public async Task<IEnumerable<ICommitedEvent>> GetAllEventsAsync(Guid id)
         {
             var command = Connection.CreateCommand();
-            command.CommandText = "SELECT Body FROM Events WHERE AggregateId = @AggregateId ORDER BY Version ASC";
+            command.CommandText = "SELECT Body, Metadata FROM Events WHERE AggregateId = @AggregateId ORDER BY Version ASC";
             command.Parameters.AddWithValue("@AggregateId", id);
 
-            List<IDomainEvent> events = new List<IDomainEvent>();
+            var events = new List<ICommitedEvent>();
 
             EnsureOpenedConnection();
 
@@ -69,21 +68,21 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
             {
                 while (sqlReader.Read())
                 {
-                    events.Add(Deserialize<IDomainEvent>(sqlReader.GetString(0)));
+                    events.Add(Deserialize<ICommitedEvent>(sqlReader.GetString(0), sqlReader.GetString(1)));
                 }
             }
 
             return events;
         }
         
-        public async Task SaveAsync(UncommitedDomainEventCollection collection)
+        public async Task SaveAsync(IEnumerable<ISerializedEvent> collection)
         {
             var command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO Events (Id, AggregateId, Timestamp, EventTypeName, Body, Version) VALUES (@Id, @AggregateId, @Timestamp, @EventTypeName, @Body, @Version)";
+            command.CommandText = "INSERT INTO Events (Id, AggregateId, Timestamp, Metadata, Body, Version) VALUES (@Id, @AggregateId, @Timestamp, @Metadata, @Body, @Version)";
             command.Parameters.Add("@Id", DbType.Guid);
             command.Parameters.Add("@AggregateId", DbType.Guid);
             command.Parameters.Add("@Timestamp", DbType.DateTime);
-            command.Parameters.Add("@EventTypeName", DbType.String, 250);
+            command.Parameters.Add("@Metadata", DbType.String);
             command.Parameters.Add("@Body", DbType.String);
             command.Parameters.Add("@Version", DbType.Int32);
 
@@ -93,12 +92,12 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
             {
                 foreach (var @event in collection)
                 {
-                    command.Parameters[0].Value = @event.Id;
-                    command.Parameters[1].Value = @event.AggregateId;
+                    command.Parameters[0].Value = @event.Metadata.GetValue(MetadataKeys.EventId, Guid.Parse);
+                    command.Parameters[1].Value = @event.Metadata.GetValue(MetadataKeys.AggregateId, Guid.Parse);
                     command.Parameters[2].Value = DateTime.UtcNow;
-                    command.Parameters[3].Value = @event.GetType().Name;
-                    command.Parameters[4].Value = Serialize(@event);
-                    command.Parameters[5].Value = @event.Version;
+                    command.Parameters[3].Value = @event.SerializedMetadata;
+                    command.Parameters[4].Value = @event.SerializedData;
+                    command.Parameters[5].Value = @event.Metadata.GetValue(MetadataKeys.EventVersion, int.Parse);
 
                     await command.ExecuteNonQueryAsync().ConfigureAwait(false);
                 }
@@ -151,14 +150,14 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
             return snapshot;
         }
         
-        public async Task<IEnumerable<IDomainEvent>> GetEventsForwardAsync(Guid aggregateId, int version)
+        public async Task<IEnumerable<ICommitedEvent>> GetEventsForwardAsync(Guid aggregateId, int version)
         {
             var command = Connection.CreateCommand();
-            command.CommandText = "SELECT Body FROM Events WHERE AggregateId = @AggregateId AND Version > @Version ORDER BY Version ASC";
+            command.CommandText = "SELECT Body, Metadata FROM Events WHERE AggregateId = @AggregateId AND Version > @Version ORDER BY Version ASC";
             command.Parameters.AddWithValue("@AggregateId", aggregateId);
             command.Parameters.AddWithValue("@Version", version);
 
-            List<IDomainEvent> events = new List<IDomainEvent>();
+            List<ICommitedEvent> events = new List<ICommitedEvent>();
 
             EnsureOpenedConnection();
 
@@ -167,7 +166,7 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
             {
                 while (await sqlReader.ReadAsync())
                 {
-                    events.Add(Deserialize<IDomainEvent>(sqlReader.GetString(0)));
+                    events.Add(Deserialize<ICommitedEvent>(sqlReader.GetString(0), sqlReader.GetString(1)));
                 }
             }
 
@@ -187,22 +186,25 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
 
         private static string Serialize<TObject>(TObject @event)
         {
-            return JsonConvert.SerializeObject(@event, JsonSerializerSettings);
+            return JsonConvert.SerializeObject(@event);
         }
 
         private static TReturn Deserialize<TReturn>(string json)
         {
-            var @event = JsonConvert.DeserializeObject(json, JsonSerializerSettings);
+            var @event = JsonConvert.DeserializeObject(json);
 
             return (TReturn)@event;
         }
 
-        private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
+        private static TReturn Deserialize<TReturn>(string json, string typeName)
         {
-            TypeNameHandling = TypeNameHandling.All,
-            TypeNameAssemblyFormat = FormatterAssemblyStyle.Full
-        };
+            var type = Type.GetType(typeName);
 
+            var @event = JsonConvert.DeserializeObject(json, type);
+
+            return (TReturn)@event;
+        }
+        
         private void EnsureOpenedConnection()
         {
             if (Connection.State != ConnectionState.Open)

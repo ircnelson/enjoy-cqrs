@@ -31,7 +31,7 @@ namespace EnjoyCQRS.IntegrationTests.Sqlite
                     @"CREATE TABLE Events (Id [uniqueidentifier] PRIMARY KEY, 
                                                              AggregateId [uniqueidentifier] NOT NULL, 
                                                              Timestamp [CURRENT_TIMESTAMP] NOT NULL, 
-                                                             EventTypeName [VARCHAR(250)] NOT NULL, 
+                                                             Metadata [TEXT] NOT NULL, 
                                                              Body [TEXT] NOT NULL,
                                                              Version [INT])",
 

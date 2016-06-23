@@ -82,8 +82,11 @@
     <Compile Include="Stubs\ApplicationLayer\ChangeNameCommand.cs" />
     <Compile Include="Stubs\ApplicationLayer\ChangeNameCommandHandler.cs" />
     <Compile Include="Extensions\CustomRegistrationExtensions.cs" />
+    <Compile Include="Stubs\ApplicationLayer\ChangePlayerName.cs" />
+    <Compile Include="Stubs\ApplicationLayer\ChangePlayerNameHandler.cs" />
     <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommand.cs" />
     <Compile Include="Stubs\ApplicationLayer\CreateFakeGameCommandHandler.cs" />
+    <Compile Include="Stubs\DomainLayer\PlayerChangedName.cs" />
     <Compile Include="Stubs\EventRouter.cs" />
     <Compile Include="MiniApplicationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +109,10 @@
     <ProjectReference Include="..\..\src\EnjoyCQRS\EnjoyCQRS.csproj">
       <Project>{7CEDD8F7-210D-44FC-B690-9079AF5A12DF}</Project>
       <Name>EnjoyCQRS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnjoyCQRS.IntegrationTests.Shared\EnjoyCQRS.IntegrationTests.Shared.csproj">
+      <Project>{A7982FC7-1BAB-4ED6-99AE-FACE5E10F5C7}</Project>
+      <Name>EnjoyCQRS.IntegrationTests.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

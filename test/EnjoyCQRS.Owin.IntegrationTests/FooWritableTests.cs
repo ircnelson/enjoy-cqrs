@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Storage;
+using EnjoyCQRS.IntegrationTests.Shared;
 using EnjoyCQRS.Owin.IntegrationTests.Infrastructure;
 using FluentAssertions;
 using Microsoft.Owin.Testing;
@@ -14,18 +16,20 @@ namespace EnjoyCQRS.Owin.IntegrationTests
         [Fact]
         public async Task Should_create_foo()
         {
-            var eventStore = new StubEventStore();
+            var eventStore = new InMemoryEventStore();
+
             var server = TestServerFactory(eventStore);
 
             await server.CreateRequest("/command/foo").PostAsync();
 
-            eventStore.Events.Keys.Count.Should().Be(1);
+            eventStore.Events.Count.Should().Be(1);
         }
 
         [Fact]
         public async Task Should_do_something()
         {
-            var eventStore = new StubEventStore();
+            var eventStore = new InMemoryEventStore();
+
             var server = TestServerFactory(eventStore);
 
             var response = await server.CreateRequest("/command/foo").PostAsync();

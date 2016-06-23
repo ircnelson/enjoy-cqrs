@@ -19,9 +19,15 @@ namespace EnjoyCQRS.IntegrationTests.Stubs.DomainLayer
             Emit(new FakeGameCreated(id, namePlayerOne, namePlayerTwo));
         }
 
+        public void ChangePlayerName(int player, string name)
+        {
+            Emit(new PlayerChangedName(Id, player, name));
+        }
+
         protected override void RegisterEvents()
         {
             SubscribeTo<FakeGameCreated>(Apply);
+            SubscribeTo<PlayerChangedName>(Apply);
         }
 
         private void Apply(FakeGameCreated obj)
@@ -30,7 +36,13 @@ namespace EnjoyCQRS.IntegrationTests.Stubs.DomainLayer
             NamePlayerOne = obj.NamePlayerOne;
             NamePlayerTwo = obj.NamePlayerTwo;
         }
-        
+
+        private void Apply(PlayerChangedName obj)
+        {
+            if (obj.Player == 1) NamePlayerOne = obj.Name;
+            else NamePlayerTwo = obj.Name;
+        }
+
         protected override FakeGameSnapshot CreateSnapshot()
         {
             return new FakeGameSnapshot
