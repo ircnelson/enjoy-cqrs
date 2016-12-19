@@ -14,10 +14,13 @@ environment:
 skip_commits:
   message: /updated readme.*/
 build_script:
-- ps: .\build.ps1
+- ps: .\build.ps1 -Target AppVeyor
 test: off
 artifacts:
-- path: artifacts\**\*.*
+  - path: artifacts\test-results\*.*
+    name: test-results
+  - path: artifacts\nugets\*.*
+    name: nugets
 deploy:
 - provider: NuGet
   skip_symbols: true

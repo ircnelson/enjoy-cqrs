@@ -1,7 +1,9 @@
+#addin Cake.Coveralls
+
 #tool "nuget:?package=xunit.runner.console"
 #tool "nuget:https://www.nuget.org/api/v2?package=OpenCover&version=4.6.519"
 #tool "nuget:https://www.nuget.org/api/v2?package=ReportGenerator&version=2.4.5"
-#tool "nuget:https://www.nuget.org/api/v2?package=coveralls.io&version=1.3.4"
+#tool coveralls.io
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -9,7 +11,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-var skipOpenCover = Argument("skipOpenCover", true);
+var skipOpenCover = Argument("skipOpenCover", false);
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -22,12 +24,12 @@ var testCoverageOutputFilePath = testResultsDir.CombineWithFilePath("OpenCover.x
 var outputNugets = artifactsDir.Combine("nugets");
 
 var isAppVeyorBuild = AppVeyor.IsRunningOnAppVeyor;
-var buildVersion = "build" + Context.EnvironmentVariable("Build");
+var buildNumber = "build" + Context.EnvironmentVariable("APPVEYOR_BUILD_NUMBER");
 var branch = Context.EnvironmentVariable("APPVEYOR_REPO_BRANCH");
 var coverallsToken = Context.EnvironmentVariable("COVERALLS_REPO_TOKEN");
 
 Context.Information("Test Coverage Output File: " + testCoverageOutputFilePath);
-Context.Information("Build Version: " + buildVersion);
+Context.Information("Build Version: " + buildNumber);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -60,10 +62,6 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-    }
-
     var projects = GetFiles("./**/*.xproj");
     
     foreach(var project in projects)
@@ -88,9 +86,9 @@ Task("Run-Unit-Tests")
 
     Context.Information("Found " + projects.Count() + " projects");
 
-    foreach(var project in projects)
+    foreach (var project in projects)
     {
-        if(IsRunningOnWindows())
+        if (IsRunningOnWindows())
         {
             var apiUrl = EnvironmentVariable("APPVEYOR_API_URL");
 
@@ -179,7 +177,7 @@ Task("Create-NuGet-Packages")
 
         if (isAppVeyorBuild && branch != "master") 
         {
-            dotNetCorePackSettings.VersionSuffix = buildVersion.ToString(),
+            dotNetCorePackSettings.VersionSuffix = buildNumber.ToString();
         }
 
         DotNetCorePack(nuspec.GetDirectory().FullPath, dotNetCorePackSettings);
@@ -188,9 +186,8 @@ Task("Create-NuGet-Packages")
 
 Task("Code-Coverage")
     .WithCriteria(() => FileExists(testCoverageOutputFilePath))
-    .WithCriteria(() => !Context.IsLocalBuild)
-    .WithCriteria(() => string.IsNullOrEmpty(coverallsToken))
-    .WithCriteria(() => branch == "master")
+    .WithCriteria(() => !BuildSystem.IsLocalBuild)
+    .WithCriteria(() => !string.IsNullOrEmpty(coverallsToken))
     .IsDependentOn("Run-Unit-Tests")
     .Does(() => 
 {
