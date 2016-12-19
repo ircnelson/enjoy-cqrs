@@ -5,37 +5,17 @@ branches:
   - dev
   - ci
 configuration: Release
-init:
-- ps: >-
-      $env:LABEL = $null;
-      if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
-        $env:LABEL = "build-" + $env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0");
-      }
 clone_folder: c:\projects\enjoycqrs
 clone_depth: 1
-platform: AnyCPU
 environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   COVERALLS_REPO_TOKEN:
     secure: kHP+PNmg4mKBU2zHqiMfKsj/j2tAjx/XF4/GC7c9sQkUnn2K6VisA91ad9jH9qod
 skip_commits:
   message: /updated readme.*/
-before_build:
-- appveyor-retry dotnet restore -v Minimal
 build_script:
-- dotnet build "src\EnjoyCQRS" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\EnjoyCQRS.TestFramework" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "src\EnjoyCQRS.EventStore.MongoDB" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "test\EnjoyCQRS.UnitTests.Shared" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "test\EnjoyCQRS.UnitTests" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "test\EnjoyCQRS.MongoDB.IntegrationTests" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-after_build:
-- dotnet pack "src\EnjoyCQRS" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\packages
-- dotnet pack "src\EnjoyCQRS.TestFramework" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\packages
-- dotnet pack "src\EnjoyCQRS.EventStore.MongoDB" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts\packages
-test_script:
-- dotnet test "test\EnjoyCQRS.UnitTests" -c %CONFIGURATION% --no-build
-- dotnet test "test\EnjoyCQRS.MongoDB.IntegrationTests" -c %CONFIGURATION% --no-build
+- ps: .\build.ps1
+test: off
 artifacts:
 - path: artifacts\**\*.*
 deploy:
