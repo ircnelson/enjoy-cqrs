@@ -258,3 +258,4 @@ paket-files/
 TestResults/
 !tools/packages.config
 tools/
+.idea
