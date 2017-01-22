@@ -1,17 +1,17 @@
 ﻿// The MIT License (MIT)
-//
+// 
 // Copyright (c) 2016 Nelson Corrêa V. Júnior
-//
+// 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-//
+// 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,32 +21,29 @@
 // SOFTWARE.
 
 using System;
-using EnjoyCQRS.EventSource.Projections;
-using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace EnjoyCQRS.EventSource.Projections
 {
-    [BsonDiscriminator(RootClass = true)]
-    [BsonIgnoreExtraElements]
-    public class MongoProjection : IProjection
+    public interface IProjectionRepository
     {
-        [BsonId]
-        public string Id => $"{Category}:{ProjectionId}";
+        /// <summary>
+        /// Get the generic projection based on category and id.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<Dictionary<string, object>> GetAsync(string category, Guid id);
 
-        [BsonElement("pid")]
-        public Guid ProjectionId { get; private set; }
-
-        [BsonElement("category")]
-        public string Category { get; private set; }
-
-        [BsonElement("projection")]
-        public object Projection { get; private set; }
-
-        public MongoProjection(Guid projectionId, string category, object projection)
-        {
-            ProjectionId = projectionId;
-            Category = category;
-            Projection = projection;
-        }
+        /// <summary>
+        /// <para>
+        /// Get the generic projection based on projection name (i.e. PersonAggregate-a5b4fd92-fcfa-4c50-b626-109c3e6d8967),
+        /// </para>
+        /// where PersonAggregate is the category of projection and a5b4fd92-fcfa-4c50-b626-109c3e6d8967 is the aggregate id.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        Task<Dictionary<string, object>> GetAsync(string name);
     }
 }

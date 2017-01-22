@@ -26,7 +26,7 @@ namespace EnjoyCQRS.EventSource.Projections
 {
     public interface IProjection
     {
-        Guid Id { get; }
+        Guid ProjectionId { get; }
         string Category { get; }
 
         object Projection { get; }

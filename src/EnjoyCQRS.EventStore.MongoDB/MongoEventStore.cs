@@ -246,7 +246,7 @@ namespace EnjoyCQRS.EventStore.MongoDB
             foreach (var uncommitedProjection in projections.Cast<MongoProjection>())
             {
                 var filter = FilterDefinition<MongoProjection>.Empty
-                             & filterBuilder.Eq(e => e.Id, uncommitedProjection.Id)
+                             & filterBuilder.Eq(e => e.ProjectionId, uncommitedProjection.ProjectionId)
                              & filterBuilder.Eq(e => e.Category, uncommitedProjection.Category);
 
                 var document = await projectionCollection.FindAsync(filter);
