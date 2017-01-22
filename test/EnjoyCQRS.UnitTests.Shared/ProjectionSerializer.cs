@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Projections;
 
@@ -14,6 +14,7 @@ namespace EnjoyCQRS.UnitTests.Shared
         public class AggregateProjection : IProjection
         {
             public Guid ProjectionId { get; }
+
             public string Category => "aggregate";
 
             public object Projection { get; }

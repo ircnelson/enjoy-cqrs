@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventSource.Projections;
@@ -23,11 +23,11 @@ namespace EnjoyCQRS.UnitTests.Shared.TestSuit
 
             _eventStore = new EventStoreWrapper(eventStore);
         }
-        
+
         public async Task EventTestsAsync()
         {
             var bar = GenerateBar();
-            
+
             var session = CreateSession();
 
             await session.AddAsync(bar).ConfigureAwait(false);
