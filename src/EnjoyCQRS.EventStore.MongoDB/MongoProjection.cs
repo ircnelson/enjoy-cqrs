@@ -23,10 +23,11 @@
 using System;
 using EnjoyCQRS.EventSource.Projections;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace EnjoyCQRS.EventStore.MongoDB
 {
-    [BsonDiscriminator(RootClass = true)]
+    [BsonDiscriminator(Required = false, RootClass = false)]
     [BsonIgnoreExtraElements]
     public class MongoProjection : IProjection
     {

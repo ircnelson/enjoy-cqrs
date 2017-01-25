@@ -24,7 +24,7 @@ namespace EnjoyCQRS.UnitTests.Shared.TestSuit
             _eventStore = new EventStoreWrapper(eventStore);
         }
 
-        public async Task EventTestsAsync()
+        public async Task<Bar> EventTestsAsync()
         {
             var bar = GenerateBar();
 
@@ -47,6 +47,8 @@ namespace EnjoyCQRS.UnitTests.Shared.TestSuit
             bar.Id.Should().Be(bar2.Id);
 
             result.Should().BeTrue();
+
+            return bar;
         }
 
         public async Task SnapshotTestsAsync()

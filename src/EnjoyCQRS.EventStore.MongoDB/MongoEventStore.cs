@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -255,8 +254,7 @@ namespace EnjoyCQRS.EventStore.MongoDB
                 {
                     var update = Builders<MongoProjection>.Update;
 
-                    var updateDefinition = update
-                        .Set(e => e.Projection, uncommitedProjection.Projection);
+                    var updateDefinition = update.Set(e => e.Projection, uncommitedProjection.Projection);
 
                     await projectionCollection.FindOneAndUpdateAsync(filter, updateDefinition);
                 }
