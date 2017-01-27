@@ -1,4 +1,4 @@
-﻿using EnjoyCQRS.EventSource.Projections;
+using EnjoyCQRS.EventSource.Projections;
 using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;

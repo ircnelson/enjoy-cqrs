@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Dynamic;
 
 namespace EnjoyCQRS.EventSource.Projections
 {

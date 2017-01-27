@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using EnjoyCQRS.EventSource;
 using System.Collections.Generic;
 using EnjoyCQRS.Attributes;
