@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource;
 using EnjoyCQRS.EventStore.MongoDB;
 using EnjoyCQRS.UnitTests.Shared.TestSuit;
 using FluentAssertions;
@@ -9,7 +8,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using Xunit;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
+using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate.Projections;
 
 namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
 {
@@ -129,7 +128,7 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
 
                 using (var projectionRepository = new MongoProjectionRepository(_mongoClient, DatabaseName))
                 {
-                    var projection = await projectionRepository.GetAsync<IBar>(aggregateType.Name, aggregate.Id);
+                    var projection = await projectionRepository.GetAsync<BarProjection>(nameof(BarProjection), aggregate.Id);
 
                     projection.Id.Should().Be(aggregate.Id);
                     projection.LastText.Should().Be(aggregate.LastText);
