@@ -22,7 +22,6 @@
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Scrutor" Version="1.12.0" />
-    <PackageReference Include="Microsoft.DotNet.InternalAbstractions" Version="1.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta1-build1309" />
   </ItemGroup>
 
