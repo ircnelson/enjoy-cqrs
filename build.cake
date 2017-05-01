@@ -43,7 +43,7 @@ Task("Restore-NuGet-Packages")
     DotNetCoreRestore("./", new DotNetCoreRestoreSettings
     {
         Verbose = false,
-        Verbosity = DotNetCoreRestoreVerbosity.Warning,
+      
         Sources = new [] {
             "https://api.nuget.org/v3/index.json"
         }
