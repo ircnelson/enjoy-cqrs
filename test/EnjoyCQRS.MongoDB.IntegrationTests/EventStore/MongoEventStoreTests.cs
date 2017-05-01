@@ -45,7 +45,6 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
         public MongoEventStoreTests()
         {
             var mongoHost = Environment.GetEnvironmentVariable("MONGODB_HOST");
-            //var mongoHost = "localhost:27017";
 
             if (string.IsNullOrWhiteSpace(mongoHost)) throw new ArgumentNullException("The variable 'MONGODB_HOST' was not configured.");
 
