@@ -54,7 +54,7 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    var projects = GetFiles("./**/*.xproj");
+    var projects = GetFiles("./**/*.csproj");
     
     foreach(var project in projects)
     {
@@ -71,7 +71,7 @@ Task("Run-Unit-Tests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    var projects = GetFiles("./test/**/*Tests.xproj");
+    var projects = GetFiles("./test/**/*Tests.csproj");
 
     CreateDirectory(testResultsDir);
 
