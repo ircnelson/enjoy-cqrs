@@ -1,30 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F375D78C-9BF2-446A-927A-E6DBBF82C843}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5433AD41-6D53-41BC-A73B-B9CA977893D3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS", "src\EnjoyCQRS\EnjoyCQRS.xproj", "{A753A5D4-570C-48C6-82BA-1B268BBFB173}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.UnitTests", "test\EnjoyCQRS.UnitTests\EnjoyCQRS.UnitTests.xproj", "{73E0C1BD-F62F-4675-AA1B-8DAE130A9379}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EA79EBDC-AE65-4DFF-961E-477046B534F9}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnjoyCQRS", "src\EnjoyCQRS\EnjoyCQRS.csproj", "{A753A5D4-570C-48C6-82BA-1B268BBFB173}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnjoyCQRS.UnitTests", "test\EnjoyCQRS.UnitTests\EnjoyCQRS.UnitTests.csproj", "{73E0C1BD-F62F-4675-AA1B-8DAE130A9379}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.TestFramework", "src\EnjoyCQRS.TestFramework\EnjoyCQRS.TestFramework.xproj", "{9EB68094-BDD7-4D60-89B4-E2E7C17E568F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.UnitTests.Shared", "test\EnjoyCQRS.UnitTests.Shared\EnjoyCQRS.UnitTests.Shared.xproj", "{CBAB5ED2-B4F6-40D2-9AB6-7D29AF60C732}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnjoyCQRS.UnitTests.Shared", "test\EnjoyCQRS.UnitTests.Shared\EnjoyCQRS.UnitTests.Shared.csproj", "{CBAB5ED2-B4F6-40D2-9AB6-7D29AF60C732}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.EventStore.MongoDB", "src\EnjoyCQRS.EventStore.MongoDB\EnjoyCQRS.EventStore.MongoDB.xproj", "{1EA03A11-1553-4EC4-8184-5ED97794D5BD}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.MongoDB.IntegrationTests", "test\EnjoyCQRS.MongoDB.IntegrationTests\EnjoyCQRS.MongoDB.IntegrationTests.xproj", "{E9CABC60-5A99-492B-B6DA-4161295C2491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnjoyCQRS.MongoDB.IntegrationTests", "test\EnjoyCQRS.MongoDB.IntegrationTests\EnjoyCQRS.MongoDB.IntegrationTests.csproj", "{E9CABC60-5A99-492B-B6DA-4161295C2491}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EnjoyCQRS.IntegrationTests", "test\EnjoyCQRS.IntegrationTests\EnjoyCQRS.IntegrationTests.xproj", "{975FACD9-62FD-46FF-8525-959B6FEB926A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnjoyCQRS.IntegrationTests", "test\EnjoyCQRS.IntegrationTests\EnjoyCQRS.IntegrationTests.csproj", "{975FACD9-62FD-46FF-8525-959B6FEB926A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
