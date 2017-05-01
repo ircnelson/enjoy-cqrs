@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Properties\launchSettings.json" />
+    <Content Include="Properties\launchSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
