@@ -54,11 +54,22 @@ Task ("Build")
     .IsDependentOn ("Restore-NuGet-Packages")
     .Does (() =>
 {
-    var projects = GetFiles("./**/*.csproj");
+    var projects = GetFiles("./src/**/*.csproj");
     
     foreach(var project in projects)
     {
-        Context.Information("Project: " + project.FullPath);
+        Context.Information("Building Project: " + project.FullPath);
+
+        DotNetCoreBuild(project.FullPath, new DotNetCoreBuildSettings {
+            Configuration = configuration
+        });
+    }
+
+	projects = GetFiles("./test/**/*.csproj");
+    
+    foreach(var project in projects)
+    {
+        Context.Information("Building Project: " + project.FullPath);
 
         DotNetCoreBuild(project.FullPath, new DotNetCoreBuildSettings {
             Configuration = configuration
