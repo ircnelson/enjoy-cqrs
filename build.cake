@@ -63,7 +63,7 @@ Task ("Build")
     {
         Context.Information("Building Project: " + project.FullPath);
         DotNetCoreBuild(project.FullPath, settings);
-    } 
+    }
 
 	projects = GetFiles("./test/**/*.csproj");
     foreach(var project in projects)
