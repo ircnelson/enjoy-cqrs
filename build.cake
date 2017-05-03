@@ -66,7 +66,11 @@ Task ("Build")
     }
 
 	if(!IsRunningOnWindows()){
-		settings.Framework = "netcoreapp1.1";
+		if(project.GetFilenameWithoutExtension().EndsWith("Shared")){
+			settings.Framework = "netstandard1.6";
+		} else {
+			settings.Framework = "netcoreapp1.1";
+		}
 	}
 	projects = GetFiles("./test/**/*.csproj");
     foreach(var project in projects)
