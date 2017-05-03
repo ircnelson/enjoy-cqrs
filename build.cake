@@ -58,7 +58,6 @@ Task ("Build")
 	if(!IsRunningOnWindows()){
 		settings.Framework = "netstandard1.6";
 	}
-    
 	var projects = GetFiles("./src/**/*.csproj");
     foreach(var project in projects)
     {
@@ -66,13 +65,15 @@ Task ("Build")
         DotNetCoreBuild(project.FullPath, settings);
     }
 
+	if(!IsRunningOnWindows()){
+		settings.Framework = "netcoreapp1.1";
+	}
 	projects = GetFiles("./test/**/*.csproj");
     foreach(var project in projects)
     {
         Context.Information("Building Project: " + project.FullPath);
         DotNetCoreBuild(project.FullPath, settings);
     }
-    
 });
 
 Task ("Run-Unit-Tests")
