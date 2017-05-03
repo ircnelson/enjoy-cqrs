@@ -65,16 +65,16 @@ Task ("Build")
         DotNetCoreBuild(project.FullPath, settings);
     }
 
-	if(!IsRunningOnWindows()){
-		if(project.GetFilenameWithoutExtension().EndsWith("Shared")){
-			settings.Framework = "netstandard1.6";
-		} else {
-			settings.Framework = "netcoreapp1.1";
-		}
-	}
 	projects = GetFiles("./test/**/*.csproj");
     foreach(var project in projects)
     {
+		if(!IsRunningOnWindows()){
+			if(project.GetFilenameWithoutExtension().ToString().EndsWith("Shared")){
+				settings.Framework = "netstandard1.6";
+			} else {
+				settings.Framework = "netcoreapp1.1";
+			}
+		}
         Context.Information("Building Project: " + project.FullPath);
         DotNetCoreBuild(project.FullPath, settings);
     }
