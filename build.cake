@@ -55,6 +55,11 @@ Task ("Build")
     .Does (() =>
 {
     var projects = GetFiles("./src/**/*.csproj");
+
+	ver settings = new DotNetCoreBuildSettings { Configuration = configuration };
+	if(!IsRunningOnWindows()){
+		settings.Framework = "netstandard1.6"
+	}
     
     foreach(var project in projects)
     {
@@ -62,6 +67,7 @@ Task ("Build")
 
         DotNetCoreBuild(project.FullPath, new DotNetCoreBuildSettings {
             Configuration = configuration
+
         });
     }
 
