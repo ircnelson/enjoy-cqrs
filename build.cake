@@ -120,7 +120,8 @@ Task ("Run-Unit-Tests")
                         testCoverageOutputFilePath,
                         new OpenCoverSettings {
                             ReturnTargetCodeOffset = 0,
-                            ArgumentCustomization = args => args.Append("-mergeoutput")
+							OldStyle = true,
+							MergeOutput = true
                         }
                         .WithFilter("+[EnjoyCQRS*]* -[xunit.*]* -[FluentAssertions*]* -[*Tests]* -[*Tests.Shared]* ")
                         .ExcludeByAttribute("*.ExcludeFromCodeCoverage*")
