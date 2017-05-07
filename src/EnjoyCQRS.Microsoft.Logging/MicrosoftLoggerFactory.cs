@@ -1,0 +1,24 @@
+﻿using EnjoyCQRS.Logger;
+using MsLogging = Microsoft.Extensions.Logging;
+
+namespace EnjoyCQRS.Microsoft.Logging
+{
+    public class MicrosoftLoggerFactory : ILoggerFactory
+    {
+        private readonly MsLogging.ILoggerFactory _loggerFactory;
+
+        public MicrosoftLoggerFactory(MsLogging.ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
+
+        public ILogger Create(string name)
+        {
+            return _loggerFactory.CreateLogger(name);
+        }
+
+        public void Dispose()
+        {
+        }
+    }
+}

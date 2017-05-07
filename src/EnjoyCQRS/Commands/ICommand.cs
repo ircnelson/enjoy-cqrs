@@ -27,5 +27,6 @@ namespace EnjoyCQRS.Commands
     /// </summary>
     public interface ICommand
     {
+        Guid AggregateId { get; }
     }
 }
