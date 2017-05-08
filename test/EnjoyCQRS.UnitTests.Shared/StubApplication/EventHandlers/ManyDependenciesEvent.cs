@@ -1,13 +1,13 @@
 ﻿using System;
 using EnjoyCQRS.Events;
 
-namespace EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate
+namespace EnjoyCQRS.UnitTests.Shared.StubApplication.EventHandlers
 {
-    public class SpokeSomething : IDomainEvent
+    public class ManyDependenciesEvent : IDomainEvent
     {
         public string Text { get; }
 
-        public SpokeSomething(string text)
+        public ManyDependenciesEvent(string text)
         {
             Text = text;
         }

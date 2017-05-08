@@ -7,16 +7,6 @@ using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
 
 namespace EnjoyCQRS.UnitTests.Shared.StubApplication.Commands.BarAggregate
 {
-    public class ManyDependenciesCommand : ICommand
-    {
-        public string Text { get; }
-
-        public ManyDependenciesCommand(string text)
-        {
-            Text = text;
-        }
-    }
-
     public class ManyDependenciesCommandHandler : ICommandHandler<ManyDependenciesCommand>
     {
         private readonly IRepository _repository;

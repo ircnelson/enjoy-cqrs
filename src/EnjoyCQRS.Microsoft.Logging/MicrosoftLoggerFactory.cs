@@ -14,7 +14,7 @@ namespace EnjoyCQRS.Microsoft.Logging
 
         public ILogger Create(string name)
         {
-            return _loggerFactory.CreateLogger(name);
+            return new MicrosoftLogger(_loggerFactory.CreateLogger(name));
         }
 
         public void Dispose()

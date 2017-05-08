@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>2.4.2</VersionPrefix>
+    <VersionPrefix>2.4.7</VersionPrefix>
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
     <AssemblyName>EnjoyCQRS.TestFramework</AssemblyName>
     <PackageId>EnjoyCQRS.TestFramework</PackageId>
