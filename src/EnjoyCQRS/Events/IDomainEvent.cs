@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+
 namespace EnjoyCQRS.Events
 {
     /// <summary>
@@ -29,5 +31,6 @@ namespace EnjoyCQRS.Events
     /// </summary>
     public interface IDomainEvent
     {
+        Guid AggregateId { get; }
     }
 }

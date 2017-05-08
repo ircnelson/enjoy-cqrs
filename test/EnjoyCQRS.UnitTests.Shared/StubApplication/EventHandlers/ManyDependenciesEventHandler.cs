@@ -7,16 +7,6 @@ using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
 
 namespace EnjoyCQRS.UnitTests.Shared.StubApplication.EventHandlers
 {
-    public class ManyDependenciesEvent : IDomainEvent
-    {
-        public string Text { get; }
-
-        public ManyDependenciesEvent(string text)
-        {
-            Text = text;
-        }
-    }
-
     public class ManyDependenciesEventHandler : IEventHandler<ManyDependenciesEvent>
     {
         private readonly IRepository _repository;

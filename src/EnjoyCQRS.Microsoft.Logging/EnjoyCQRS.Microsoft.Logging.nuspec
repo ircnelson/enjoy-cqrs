@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EnjoyCQRS.Microsoft.Logging</id>
+    <version>*</version>
+    <title>EnjoyCQRS.Microsoft.Logging</title>
+    <authors>ircnelson</authors>
+    <owners>ircnelson</owners>
+    <projectUrl>https://github.com/ircnelson/enjoy.cqrs</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/ircnelson/enjoy.cqrs/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>CQRS EventStore implementation using MongoDB.</summary>
+    <description><![CDATA[EnjoyCQRS.EventStore.MongoDB is an Event Store implementation using MongoDB]]></description>
+    <copyright>Copyright 2017</copyright>
+    <tags>.NET CQRS MongoDB EventSource EventSourcing Logging</tags>
+    <dependencies>
+		<dependency id="EnjoyCQRS" />
+		<dependency id="Microsoft.Extensions.Logging" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\release\**\EnjoyCQRS.Microsoft.Logging.dll" />
+  </files>
+</package>

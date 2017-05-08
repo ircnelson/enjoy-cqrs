@@ -24,34 +24,22 @@ using System;
 
 namespace EnjoyCQRS.Logger
 {
-    public class NoopLoggerFactory : ILoggerFactory
+    public class NoopLogger : ILogger
     {
-        public class NoopLogger : ILogger
+        private string _name;
+
+        public NoopLogger(string name)
         {
-            private string _name;
-
-            public NoopLogger(string name)
-            {
-                _name = name;
-            }
-
-            public void Log(LogLevel logLevel, string message, Exception exception = null)
-            {
-            }
-
-            public bool IsEnabled(LogLevel logLevel)
-            {
-                return true;
-            }
+            _name = name;
         }
 
-        public void Dispose()
+        public void Log(LogLevel logLevel, string message, Exception exception = null)
         {
         }
 
-        public ILogger Create(string name)
+        public bool IsEnabled(LogLevel logLevel)
         {
-            return new NoopLogger(name);
+            return true;
         }
     }
 }

@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+
 namespace EnjoyCQRS.Commands
 {
     /// <summary>
@@ -27,5 +29,6 @@ namespace EnjoyCQRS.Commands
     /// </summary>
     public interface ICommand
     {
+        Guid AggregateId { get; }
     }
 }
