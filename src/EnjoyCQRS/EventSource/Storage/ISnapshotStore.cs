@@ -23,10 +23,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.Events;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     /// <summary>
     /// Stores the snapshots.

@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public class Metadata : Dictionary<string, object>, IMetadata
     {

@@ -24,18 +24,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Collections;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Exceptions;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.Extensions;
-using EnjoyCQRS.Logger;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.MetadataProviders;
+using Cars.Collections;
+using Cars.Core;
+using Cars.Events;
+using Cars.EventSource.Exceptions;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Snapshots;
+using Cars.Extensions;
+using Cars.MessageBus;
+using Cars.MetadataProviders;
+using Microsoft.Extensions.Logging;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     public class Session : ISession
     {
@@ -69,41 +69,30 @@ namespace EnjoyCQRS.EventSource.Storage
             ISnapshotStrategy snapshotStrategy = null)
         {
             if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
-            if (eventStore == null) throw new ArgumentNullException(nameof(eventStore));
-            if (eventPublisher == null) throw new ArgumentNullException(nameof(eventPublisher));
-            if (eventSerializer == null) throw new ArgumentNullException(nameof(eventSerializer));
-            if (snapshotSerializer == null) throw new ArgumentNullException(nameof(snapshotSerializer));
-            if (projectionSerializer == null) throw new ArgumentNullException(nameof(projectionSerializer));
-
             if (metadataProviders == null) metadataProviders = Enumerable.Empty<IMetadataProvider>();
 
-            metadataProviders = metadataProviders.Concat(new IMetadataProvider[]
+            _logger = loggerFactory.CreateLogger<Session>();
+
+            _snapshotStrategy = snapshotStrategy ?? new IntervalSnapshotStrategy();
+            _eventStore = eventStore ?? throw new ArgumentNullException(nameof(eventStore));
+            _eventSerializer = eventSerializer ?? throw new ArgumentNullException(nameof(eventSerializer));
+            _snapshotSerializer = snapshotSerializer ?? throw new ArgumentNullException(nameof(snapshotSerializer));
+            _projectionSerializer = projectionSerializer ?? throw new ArgumentNullException(nameof(projectionSerializer));
+            _eventUpdateManager = eventUpdateManager;
+            _metadataProviders = metadataProviders.Concat(new IMetadataProvider[]
             {
                 new AggregateTypeMetadataProvider(),
                 new EventTypeMetadataProvider(),
                 new CorrelationIdMetadataProvider()
             });
+            _eventPublisher = eventPublisher ?? throw new ArgumentNullException(nameof(eventPublisher));
+
 
             if (projectionProviderScanner == null)
             {
                 _projectionProviderScanner = new ProjectionProviderAttributeScanner();
             }
 
-            if (snapshotStrategy == null)
-            {
-                snapshotStrategy = new IntervalSnapshotStrategy();
-            }
-
-            _logger = loggerFactory.Create(nameof(Session));
-
-            _snapshotStrategy = snapshotStrategy;
-            _eventStore = eventStore;
-            _eventSerializer = eventSerializer;
-            _snapshotSerializer = snapshotSerializer;
-            _projectionSerializer = projectionSerializer;
-            _eventUpdateManager = eventUpdateManager;
-            _metadataProviders = metadataProviders;
-            _eventPublisher = eventPublisher;
         }
 
         /// <summary>
@@ -306,7 +295,7 @@ namespace EnjoyCQRS.EventSource.Storage
                                         
                 }
 
-                _logger.Log(LogLevel.Information, "End iterate.");
+                _logger.LogDebug("End iterate.");
 
                 _logger.LogInformation($"Publishing events. [Qty: {uncommitedEvents.Count}]");
 
@@ -320,7 +309,7 @@ namespace EnjoyCQRS.EventSource.Storage
             }
             catch (Exception e)
             {
-                _logger.Log(LogLevel.Error, e.Message, e);
+                _logger.LogError(e.Message, e);
 
                 if (!_externalTransaction)
                 {
@@ -341,15 +330,15 @@ namespace EnjoyCQRS.EventSource.Storage
         /// </summary>
         public void Rollback()
         {
-            _logger.LogInformation("Calling Event Publisher Rollback.");
+            _logger.LogDebug("Calling Event Publisher Rollback.");
 
             _eventPublisher.Rollback();
 
-            _logger.LogInformation("Calling Event Store Rollback.");
+            _logger.LogDebug("Calling Event Store Rollback.");
 
             _eventStore.Rollback();
 
-            _logger.LogInformation("Cleaning tracker.");
+            _logger.LogDebug("Cleaning tracker.");
 
             foreach (var aggregate in _aggregates)
             {

@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.Core
+namespace Cars.Core
 {
     public interface IEventUpdate<TOldEvent> where TOldEvent : class 
     {

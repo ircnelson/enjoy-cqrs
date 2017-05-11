@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
+using Cars.EventSource.Snapshots;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Snapshoting
+namespace Cars.UnitTests.Snapshoting
 {
     public class When_restore_snapshot
     {
@@ -36,7 +34,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
         {
             _stubAggregate.Name.Should().Be(_snapshot.Name);
 
-            _stubAggregate.Version.Should().Be(1);
+            AssertionExtensions.Should((int) _stubAggregate.Version).Be(1);
         }
     }
 }

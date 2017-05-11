@@ -1,11 +1,11 @@
-﻿using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
+﻿using Cars.EventSource;
+using Cars.EventSource.Snapshots;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Snapshoting
+namespace Cars.UnitTests.Snapshoting
 {
     public class IntervalSnapshotStrategyTests
     {
@@ -21,7 +21,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
             var itervalSnapshotStrategy = new IntervalSnapshotStrategy();
             var hasSupport = itervalSnapshotStrategy.CheckSnapshotSupport(snapshotAggregateType);
 
-            hasSupport.Should().BeTrue();
+            AssertionExtensions.Should((bool) hasSupport).BeTrue();
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -33,7 +33,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
             var defaultSnapshotStrategy = new IntervalSnapshotStrategy();
             var hasSupport = defaultSnapshotStrategy.CheckSnapshotSupport(snapshotAggregateType);
 
-            hasSupport.Should().BeFalse();
+            AssertionExtensions.Should((bool) hasSupport).BeFalse();
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -55,7 +55,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
             
             var makeSnapshot = itervalSnapshotStrategy.ShouldMakeSnapshot(snapshotAggregate);
 
-            makeSnapshot.Should().Be(expected);
+            AssertionExtensions.Should((bool) makeSnapshot).Be(expected);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -69,7 +69,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
           
             var makeSnapshot = itervalSnapshotStrategy.ShouldMakeSnapshot(aggregate);
 
-            makeSnapshot.Should().BeFalse();
+            AssertionExtensions.Should((bool) makeSnapshot).BeFalse();
         }
     }
 }

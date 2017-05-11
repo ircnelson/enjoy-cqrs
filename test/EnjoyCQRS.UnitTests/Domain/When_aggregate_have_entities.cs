@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
+using Cars.Events;
+using Cars.Testing.Shared.MessageBus;
+using Cars.UnitTests.Domain.Stubs;
+using Cars.UnitTests.Domain.Stubs.Events;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Domain
+namespace Cars.UnitTests.Domain
 {
     public class When_aggregate_have_entities : AggregateTestFixture<StubSnapshotAggregate>
     {
@@ -42,14 +42,14 @@ namespace EnjoyCQRS.UnitTests.Domain
         [Then]
         public void Should_be_published_an_event_that_entity_was_created()
         {
-            PublishedEvents.Last().Should().BeOfType<ChildCreatedEvent>();
+            AssertionExtensions.Should((object) Enumerable.Last(PublishedEvents)).BeOfType<ChildCreatedEvent>();
         }
 
         [Trait(CategoryName, CategoryValue)]
         [Then]
         public void Should_verify_last_event_properties()
         {
-            var childCreatedEvent = PublishedEvents.Last().As<ChildCreatedEvent>();
+            var childCreatedEvent = AssertionExtensions.As<ChildCreatedEvent>(Enumerable.Last(PublishedEvents));
 
             childCreatedEvent.Name.Should().Be(newChildName);
         }

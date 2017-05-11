@@ -3,7 +3,7 @@ using MsLogging = Microsoft.Extensions.Logging;
 
 namespace EnjoyCQRS.Microsoft.Logging
 {
-    public class MicrosoftLoggerFactory : ILoggerFactory
+    public class MicrosoftLoggerFactory : MsLogging.ILoggerFactory
     {
         private readonly MsLogging.ILoggerFactory _loggerFactory;
 

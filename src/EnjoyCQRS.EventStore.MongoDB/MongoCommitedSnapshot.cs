@@ -21,10 +21,10 @@
 // SOFTWARE.
 
 using System;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.EventSource.Snapshots;
 using MongoDB.Bson;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     internal class MongoCommitedSnapshot : ICommitedSnapshot
     {

@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 using System.Threading.Tasks;
-using EnjoyCQRS.Commands;
+using Cars.Commands;
 
-namespace EnjoyCQRS.MessageBus
+namespace Cars.MessageBus
 {
     public abstract class CommandDispatcher : ICommandDispatcher
     {

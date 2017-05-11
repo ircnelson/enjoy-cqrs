@@ -1,20 +1,21 @@
-﻿using EnjoyCQRS.Commands;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.Logger;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.MessageBus.InProcess;
-using EnjoyCQRS.UnitTests.Shared;
+﻿using Cars.Commands;
+using Cars.Core;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Snapshots;
+using Cars.EventSource.Storage;
+using Cars.Logger;
+using Cars.MessageBus;
+using Cars.MessageBus.InProcess;
+using Cars.Testing.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Scrutor;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Scrutor;
 
-namespace EnjoyCQRS.IntegrationTests
+namespace Cars.IntegrationTests
 {
     public class Startup
     {

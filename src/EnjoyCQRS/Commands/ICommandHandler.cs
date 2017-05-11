@@ -22,7 +22,7 @@
 
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.Commands
+namespace Cars.Commands
 {
     public interface ICommandHandler<in TCommand>
         where TCommand : ICommand

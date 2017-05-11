@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Commands.FooAggregate;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.FooAggregate;
+using Cars.EventSource;
+using Cars.EventSource.Storage;
+using Cars.MessageBus;
+using Cars.Testing.Shared.StubApplication.Commands.FooAggregate;
+using Cars.Testing.Shared.StubApplication.Domain.FooAggregate;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EnjoyCQRS.IntegrationTests.Controllers
+namespace Cars.IntegrationTests.Controllers
 {
     [Route("command/foo")]
     public class FooWritableController : Controller

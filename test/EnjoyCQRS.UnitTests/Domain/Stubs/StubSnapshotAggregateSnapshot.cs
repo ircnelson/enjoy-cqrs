@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs
+namespace Cars.UnitTests.Domain.Stubs
 {
     public class StubSnapshotAggregateSnapshot : Snapshot
     {

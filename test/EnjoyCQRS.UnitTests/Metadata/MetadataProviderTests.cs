@@ -1,11 +1,12 @@
-﻿using System.Linq;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.MetadataProviders;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Cars.EventSource;
+using Cars.MetadataProviders;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Metadata
+namespace Cars.UnitTests.Metadata
 {
     public class MetadataProviderTests
     {
@@ -20,9 +21,9 @@ namespace EnjoyCQRS.UnitTests.Metadata
 
             var metadataProvider = new EventTypeMetadataProvider();
 
-            var metadata = stubAggregate.UncommitedEvents.SelectMany(e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
+            var metadata = Enumerable.SelectMany(stubAggregate.UncommitedEvents, e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
 
-            metadata.Count().Should().Be(2);
+            metadata.Count<KeyValuePair<string, object>>().Should().Be(2);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -33,9 +34,9 @@ namespace EnjoyCQRS.UnitTests.Metadata
 
             var metadataProvider = new AggregateTypeMetadataProvider();
 
-            var metadata = stubAggregate.UncommitedEvents.SelectMany(e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
+            var metadata = Enumerable.SelectMany(stubAggregate.UncommitedEvents, e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
 
-            metadata.Count().Should().Be(3);
+            metadata.Count<KeyValuePair<string, object>>().Should().Be(3);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -48,9 +49,9 @@ namespace EnjoyCQRS.UnitTests.Metadata
 
             var metadataProvider = new CorrelationIdMetadataProvider();
 
-            var metadatas = stubAggregate.UncommitedEvents.SelectMany(e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
+            var metadatas = Enumerable.SelectMany(stubAggregate.UncommitedEvents, e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
 
-            metadatas.Select(e => e.Value).Distinct().Count().Should().Be(1);
+            metadatas.Select<KeyValuePair<string, object>, object>(e => e.Value).Distinct().Count().Should().Be(1);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -59,7 +60,7 @@ namespace EnjoyCQRS.UnitTests.Metadata
         {
             var stubAggregate = StubAggregate.Create("Test");
             var metadataProvider = new EventTypeMetadataProvider();
-            var metadatas = stubAggregate.UncommitedEvents.SelectMany(e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
+            var metadatas = Enumerable.SelectMany(stubAggregate.UncommitedEvents, e => metadataProvider.Provide(stubAggregate, e.OriginalEvent, EventSource.Metadata.Empty));
 
             var metadata = new EventSource.Metadata(metadatas);
 

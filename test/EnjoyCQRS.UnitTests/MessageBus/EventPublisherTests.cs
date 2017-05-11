@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.MessageBus.InProcess;
-using EnjoyCQRS.UnitTests.MessageBus.Stubs;
+using Cars.Events;
+using Cars.MessageBus;
+using Cars.MessageBus.InProcess;
+using Cars.UnitTests.MessageBus.Stubs;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.MessageBus
+namespace Cars.UnitTests.MessageBus
 {
     public class EventPublisherTests
     {

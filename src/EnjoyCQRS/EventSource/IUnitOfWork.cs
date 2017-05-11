@@ -22,7 +22,7 @@
 
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     /// <summary>
     /// Abstraction of the Unit of work.

@@ -22,9 +22,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.MessageBus
+namespace Cars.MessageBus
 {
     public interface IEventPublisher
     {

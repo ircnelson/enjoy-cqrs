@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EnjoyCQRS.Attributes
+namespace Cars.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class EventNameAttribute : Attribute

@@ -21,11 +21,11 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.Extensions;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.Extensions;
 
-namespace EnjoyCQRS.MetadataProviders
+namespace Cars.MetadataProviders
 {
     public class EventTypeMetadataProvider : IMetadataProvider
     {

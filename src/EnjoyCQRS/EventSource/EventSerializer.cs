@@ -22,11 +22,10 @@
 
 using System;
 using System.Collections.Generic;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.Events;
-using System.Linq;
+using Cars.Core;
+using Cars.Events;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public class EventSerializer : IEventSerializer
     {

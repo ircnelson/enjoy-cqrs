@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.EventSource.Exceptions
+namespace Cars.EventSource.Exceptions
 {
     public class HandleNotFound : Exception
     {

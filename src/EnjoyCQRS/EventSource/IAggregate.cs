@@ -22,10 +22,10 @@
 
 using System;
 using System.Collections.Generic;
-using EnjoyCQRS.Collections;
-using EnjoyCQRS.Events;
+using Cars.Collections;
+using Cars.Events;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public interface IAggregate
     {

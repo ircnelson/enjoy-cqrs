@@ -25,11 +25,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.Events;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     public class InMemoryEventStore : IEventStore
     {

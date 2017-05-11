@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.UnitTests.MessageBus.Stubs
+namespace Cars.UnitTests.MessageBus.Stubs
 {
     public class OrderTestEventHandler : IEventHandler<OrderedTestEvent>
     {

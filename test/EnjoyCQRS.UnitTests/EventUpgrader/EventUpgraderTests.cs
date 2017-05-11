@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Exceptions;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.Logger;
-using EnjoyCQRS.MessageBus.InProcess;
-using EnjoyCQRS.MetadataProviders;
-using EnjoyCQRS.UnitTests.Shared;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.FooAggregate;
+using Cars.Core;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.EventSource.Exceptions;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Storage;
+using Cars.Logger;
+using Cars.MessageBus.InProcess;
+using Cars.MetadataProviders;
+using Cars.Testing.Shared;
+using Cars.Testing.Shared.StubApplication.Domain.FooAggregate;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.EventUpgrader
+namespace Cars.UnitTests.EventUpgrader
 {
     public class EventUpgraderTests
     {
@@ -32,7 +32,7 @@ namespace EnjoyCQRS.UnitTests.EventUpgrader
 
             var v2 = (EventWithoutCounter) events.First();
 
-            v2.AggregateId.Should().Be(v1.AggregateId);
+            AssertionExtensions.Should((Guid) v2.AggregateId).Be(v1.AggregateId);
             v2.Something.Should().Be(v1.Something);
         }
 
@@ -46,7 +46,7 @@ namespace EnjoyCQRS.UnitTests.EventUpgrader
 
             var v2 = (EventWithCounter) events.First();
 
-            v2.AggregateId.Should().Be(v1.AggregateId);
+            AssertionExtensions.Should((Guid) v2.AggregateId).Be(v1.AggregateId);
             v2.Something.Should().Be(v1.Something);
             v2.Counter.Should().Be(1);
         }
@@ -103,10 +103,10 @@ namespace EnjoyCQRS.UnitTests.EventUpgrader
 
             // Assert
 
-            aggregate.Id.Should().Be(id);
-            aggregate.FirstName.Should().Be("Jean");
-            aggregate.LastName.Should().Be("Grey");
-            aggregate.Version.Should().Be(4);
+            AssertionExtensions.Should((Guid) aggregate.Id).Be(id);
+            AssertionExtensions.Should((string) aggregate.FirstName).Be("Jean");
+            AssertionExtensions.Should((string) aggregate.LastName).Be("Grey");
+            AssertionExtensions.Should((int) aggregate.Version).Be(4);
         }
 
         [Fact]
@@ -163,9 +163,9 @@ namespace EnjoyCQRS.UnitTests.EventUpgrader
             
             // Assert
 
-            aggregate.Id.Should().Be(id);
-            aggregate.FirstName.Should().Be("Jean");
-            aggregate.LastName.Should().Be("Grey");
+            AssertionExtensions.Should((Guid) aggregate.Id).Be(id);
+            AssertionExtensions.Should((string) aggregate.FirstName).Be("Jean");
+            AssertionExtensions.Should((string) aggregate.LastName).Be("Grey");
         }
 
         private async Task<Session> ArrangeSessionAsync<TAggregate>(Guid aggregateId, IEventUpdateManager eventUpdateManager = null, params IDomainEvent[] arrangeEvents)
@@ -197,7 +197,7 @@ namespace EnjoyCQRS.UnitTests.EventUpgrader
                 index++;
 
                 var metadatas =
-                    metadataProviders.SelectMany(md => md.Provide(aggregate, e, EventSource.Metadata.Empty)).Concat(new[]
+                    Enumerable.SelectMany(metadataProviders, md => md.Provide(aggregate, e, EventSource.Metadata.Empty)).Concat<KeyValuePair<string, object>>(new[]
                     {
                         new KeyValuePair<string, object>(MetadataKeys.EventId, Guid.NewGuid()),
                         new KeyValuePair<string, object>(MetadataKeys.EventVersion, (aggregate.Version + index))

@@ -22,9 +22,9 @@
 
 using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource.Storage;
+using Cars.EventSource.Storage;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     /// <summary>
     /// Default implementation of <see cref="IUnitOfWork"/>.

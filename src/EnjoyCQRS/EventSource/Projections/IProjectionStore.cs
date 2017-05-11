@@ -22,7 +22,7 @@
 
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.EventSource.Projections
+namespace Cars.EventSource.Projections
 {
     /// <summary>
     /// Stores the aggregate projection

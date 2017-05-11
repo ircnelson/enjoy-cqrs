@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using EnjoyCQRS.Attributes;
-using EnjoyCQRS.Events;
+using Cars.Attributes;
+using Cars.Events;
 
-namespace EnjoyCQRS.Extensions
+namespace Cars.Extensions
 {
     public static class DomainEventExtensions
     {

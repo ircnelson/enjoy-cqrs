@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class MongoEventStoreSetttings
     {

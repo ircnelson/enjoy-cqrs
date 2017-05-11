@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace EnjoyCQRS.EventSource.Projections
+namespace Cars.EventSource.Projections
 {
     public abstract class ProjectionProvider<TAggregate, TProjection> : IProjectionProvider
         where TAggregate : IAggregate

@@ -1,13 +1,13 @@
 ﻿using System;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Commands.BarAggregate;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
+using Cars.Testing.Shared.MessageBus;
+using Cars.Testing.Shared.StubApplication.Commands.BarAggregate;
+using Cars.Testing.Shared.StubApplication.Domain;
+using Cars.Testing.Shared.StubApplication.Domain.BarAggregate;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Handlers
+namespace Cars.UnitTests.Handlers
 {
     public class PrintSomethingTests : CommandTestFixture<ManyDependenciesCommand, ManyDependenciesCommandHandler, Bar>
     {
@@ -27,7 +27,7 @@ namespace EnjoyCQRS.UnitTests.Handlers
         [Fact]
         public void Should_output_formatted_text()
         {
-            CommandHandler.Output.Should().Be("** Hello World **");
+            AssertionExtensions.Should((string) CommandHandler.Output).Be("** Hello World **");
         }
     }
 
@@ -47,7 +47,7 @@ namespace EnjoyCQRS.UnitTests.Handlers
         [Fact]
         public void Should_throw_ArgumentNullException()
         {
-            CaughtException.Should().BeOfType<ArgumentNullException>();
+            AssertionExtensions.Should((object) CaughtException).BeOfType<ArgumentNullException>();
         }
     }
 }

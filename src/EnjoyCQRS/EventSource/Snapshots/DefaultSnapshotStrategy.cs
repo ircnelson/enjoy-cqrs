@@ -23,11 +23,11 @@
 using System;
 using System.Reflection;
 
-namespace EnjoyCQRS.EventSource.Snapshots
+namespace Cars.EventSource.Snapshots
 {
     public class DefaultSnapshotStrategy : ISnapshotStrategy
     {
-        private static readonly Type SnapshotType = typeof (ISnapshotAggregate);
+        private static readonly Type _snapshotType = typeof (ISnapshotAggregate);
         
         public bool CheckSnapshotSupport(Type aggregateType)
         {
@@ -35,16 +35,14 @@ namespace EnjoyCQRS.EventSource.Snapshots
 
             if (baseType == null) return false;
 
-            if (SnapshotType.IsAssignableFrom(aggregateType)) return true;
+            if (_snapshotType.IsAssignableFrom(aggregateType)) return true;
 
             return CheckSnapshotSupport(baseType);
         }
 
         public virtual bool ShouldMakeSnapshot(IAggregate aggregate)
         {
-            if (!CheckSnapshotSupport(aggregate.GetType())) return false;
-
-            return true;
+            return CheckSnapshotSupport(aggregate.GetType());
         }
     }
 }

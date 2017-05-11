@@ -13,28 +13,28 @@ namespace EnjoyCQRS.Microsoft.Logging
             _logger = logger;
         }
 
-        public void Log(LogLevel logLevel, string message, Exception exception = null)
+        public void Log(MsLogging.LogLevel logLevel, string message, Exception exception = null)
         {
             switch (logLevel)
             {
-                case LogLevel.Critical:
+                case MsLogging.LogLevel.Critical:
                     MsLogging.LoggerExtensions.LogCritical(_logger, new MsLogging.EventId(), exception, message);
                     break;
-                case LogLevel.Debug:
+                case MsLogging.LogLevel.Debug:
                     MsLogging.LoggerExtensions.LogDebug(_logger, new MsLogging.EventId(), exception, message);
                     break;
-                case LogLevel.Error:
+                case MsLogging.LogLevel.Error:
                     MsLogging.LoggerExtensions.LogError(_logger, new MsLogging.EventId(), exception, message);
                     break;
-                case LogLevel.Information:
+                case MsLogging.LogLevel.Information:
                     MsLogging.LoggerExtensions.LogInformation(_logger, new MsLogging.EventId(), exception, message);
                     break;
-                case LogLevel.None:
+                case MsLogging.LogLevel.None:
                     break;
-                case LogLevel.Trace:
+                case MsLogging.LogLevel.Trace:
                     MsLogging.LoggerExtensions.LogTrace(_logger, new MsLogging.EventId(), exception, message);
                     break;
-                case LogLevel.Warning:
+                case MsLogging.LogLevel.Warning:
                     MsLogging.LoggerExtensions.LogWarning(_logger, new MsLogging.EventId(), exception, message);
                     break;
                 default:
@@ -42,28 +42,28 @@ namespace EnjoyCQRS.Microsoft.Logging
             }
         }
 
-        public bool IsEnabled(LogLevel logLevel)
+        public bool IsEnabled(MsLogging.LogLevel logLevel)
         {
             return _logger.IsEnabled(ToMicrosoftLogLevel(logLevel));
         }
 
-        private static MsLogging.LogLevel ToMicrosoftLogLevel(LogLevel logLevel)
+        private static MsLogging.LogLevel ToMicrosoftLogLevel(MsLogging.LogLevel logLevel)
         {
             switch (logLevel)
             {
-                case LogLevel.Critical:
+                case MsLogging.LogLevel.Critical:
                     return MsLogging.LogLevel.Critical;
-                case LogLevel.Debug:
+                case MsLogging.LogLevel.Debug:
                     return MsLogging.LogLevel.Debug;
-                case LogLevel.Error:
+                case MsLogging.LogLevel.Error:
                     return MsLogging.LogLevel.Error;
-                case LogLevel.Information:
+                case MsLogging.LogLevel.Information:
                     return MsLogging.LogLevel.Information;
-                case LogLevel.None:
+                case MsLogging.LogLevel.None:
                     return MsLogging.LogLevel.None;
-                case LogLevel.Trace:
+                case MsLogging.LogLevel.Trace:
                     return MsLogging.LogLevel.Trace;
-                case LogLevel.Warning:
+                case MsLogging.LogLevel.Warning:
                     return MsLogging.LogLevel.Warning;
                 default:
                     throw new InvalidOperationException("The requested log level is not supported.");

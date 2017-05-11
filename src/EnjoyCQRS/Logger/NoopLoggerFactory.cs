@@ -1,4 +1,6 @@
-﻿namespace EnjoyCQRS.Logger
+﻿using Microsoft.Extensions.Logging;
+
+namespace Cars.Logger
 {
     public class NoopLoggerFactory : ILoggerFactory
     {
@@ -7,9 +9,14 @@
         {
         }
 
-        public ILogger Create(string name)
+        public ILogger CreateLogger(string categoryName)
         {
-            return new NoopLogger(name);
+            return new NoopLogger(categoryName);
+        }
+
+        public void AddProvider(ILoggerProvider provider)
+        {
+            //Don't do anything...it's a noop
         }
     }
 }

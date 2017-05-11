@@ -1,14 +1,14 @@
-﻿using EnjoyCQRS.EventSource.Projections;
-using FluentAssertions;
+﻿using System;
 using System.Linq;
-using Xunit;
-using System;
 using System.Reflection;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate.Projections;
 using System.Threading.Tasks;
+using Cars.EventSource.Projections;
+using Cars.Testing.Shared.StubApplication.Domain.BarAggregate;
+using Cars.Testing.Shared.StubApplication.Domain.BarAggregate.Projections;
+using FluentAssertions;
+using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Projections
+namespace Cars.UnitTests.Projections
 {
     public class ProjectionAttributeTests
     {
@@ -21,7 +21,7 @@ namespace EnjoyCQRS.UnitTests.Projections
 
             var result = await scanner.ScanAsync(bar.GetType()).ConfigureAwait(false);
 
-            result.Providers.Count().Should().Be(3);
+            Enumerable.Count(result.Providers).Should().Be(3);
         }
 
         [Fact]
@@ -43,14 +43,14 @@ namespace EnjoyCQRS.UnitTests.Projections
 
             var result = await scanner.ScanAsync(bar.GetType()).ConfigureAwait(false);
 
-            var provider = result.Providers.First(e => e.GetType().Name == nameof(BarProjectionProvider));
+            var provider = Enumerable.First(result.Providers, e => e.GetType().Name == nameof(BarProjectionProvider));
 
             var projection = (BarProjection) provider.CreateProjection(bar);
 
-            projection.Id.Should().Be(bar.Id);
-            projection.LastText.Should().Be(bar.LastText);
-            projection.Messages.Count.Should().Be(bar.Messages.Count);
-            projection.UpdatedAt.Should().Be(bar.UpdatedAt);
+            AssertionExtensions.Should((Guid) projection.Id).Be(bar.Id);
+            AssertionExtensions.Should((string) projection.LastText).Be(bar.LastText);
+            AssertionExtensions.Should((int) projection.Messages.Count).Be(bar.Messages.Count);
+            AssertionExtensions.Should((DateTime) projection.UpdatedAt).Be(bar.UpdatedAt);
         }
     }
     

@@ -21,10 +21,10 @@
 // SOFTWARE.
 
 using System;
-using EnjoyCQRS.Events;
+using Cars.Events;
 using MongoDB.Bson;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     internal class MongoCommitedEvent : ICommitedEvent
     {

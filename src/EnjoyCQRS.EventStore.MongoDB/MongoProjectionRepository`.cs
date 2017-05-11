@@ -1,15 +1,13 @@
-﻿using EnjoyCQRS.EventSource.Projections;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using MongoDB.Bson;
+using Cars.EventSource.Projections;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class MongoProjectionRepository<TProjection> : MongoProjectionRepository, IProjectionRepository<TProjection>
     {

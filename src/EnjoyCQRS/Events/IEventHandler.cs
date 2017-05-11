@@ -22,7 +22,7 @@
 
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.Events
+namespace Cars.Events
 {
     public interface IEventHandler<TEvent> where TEvent : IDomainEvent
     {

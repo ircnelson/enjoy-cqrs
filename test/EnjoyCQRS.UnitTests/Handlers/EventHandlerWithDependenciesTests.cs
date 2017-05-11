@@ -1,12 +1,12 @@
 ﻿using System;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.EventHandlers;
+using Cars.Testing.Shared.MessageBus;
+using Cars.Testing.Shared.StubApplication.Domain;
+using Cars.Testing.Shared.StubApplication.EventHandlers;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Handlers
+namespace Cars.UnitTests.Handlers
 {
     public class PrintedSomethingTests : EventTestFixture<ManyDependenciesEvent, ManyDependenciesEventHandler>
     {
@@ -24,7 +24,7 @@ namespace EnjoyCQRS.UnitTests.Handlers
         [Fact]
         public void Should_output_formatted_text()
         {
-            EventHandler.Output.Should().Be("** Hello World **");
+            AssertionExtensions.Should((string) EventHandler.Output).Be("** Hello World **");
         }
     }
 
@@ -44,7 +44,7 @@ namespace EnjoyCQRS.UnitTests.Handlers
         [Fact]
         public void Should_throw_ArgumentNullException()
         {
-            CaughtException.Should().BeOfType<ArgumentNullException>();
+            AssertionExtensions.Should((object) CaughtException).BeOfType<ArgumentNullException>();
         }
     }
 }

@@ -21,10 +21,10 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.Events;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public interface IEventSerializer
     {

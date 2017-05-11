@@ -1,7 +1,7 @@
 ﻿using System;
-using EnjoyCQRS.Core;
+using Cars.Core;
 
-namespace EnjoyCQRS.EventSource.Projections
+namespace Cars.EventSource.Projections
 {
     public class ProjectionSerializer : IProjectionSerializer
     {

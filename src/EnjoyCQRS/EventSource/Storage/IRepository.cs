@@ -23,7 +23,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     /// <summary>
     /// Represents an abstraction where an instance of <see cref="Aggregate"/> will be persisted.

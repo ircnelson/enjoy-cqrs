@@ -1,7 +1,7 @@
 using System;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs.Events
+namespace Cars.UnitTests.Domain.Stubs.Events
 {
     public class ChildCreatedEvent : DomainEvent
     {

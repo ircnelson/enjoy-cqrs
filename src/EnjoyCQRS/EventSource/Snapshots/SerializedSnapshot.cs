@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.EventSource.Snapshots
+namespace Cars.EventSource.Snapshots
 {
     public class SerializedSnapshot : ISerializedSnapshot
     {

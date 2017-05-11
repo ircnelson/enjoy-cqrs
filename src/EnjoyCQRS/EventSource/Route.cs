@@ -22,9 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using EnjoyCQRS.EventSource.Exceptions;
+using Cars.EventSource.Exceptions;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public class Route<T> : Dictionary<Type, Action<T>>
     {

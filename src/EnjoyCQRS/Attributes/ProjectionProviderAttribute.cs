@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using EnjoyCQRS.EventSource.Projections;
+using Cars.EventSource.Projections;
 
-namespace EnjoyCQRS.Attributes
+namespace Cars.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ProjectionProviderAttribute : Attribute

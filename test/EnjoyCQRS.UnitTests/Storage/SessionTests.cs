@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Exceptions;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.UnitTests.Shared;
-using EnjoyCQRS.Logger;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
+using Cars.Core;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.EventSource.Exceptions;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Snapshots;
+using Cars.EventSource.Storage;
+using Cars.MessageBus;
+using Cars.Testing.Shared;
+using Cars.Testing.Shared.Logging;
+using Cars.UnitTests.Domain.Stubs;
+using Cars.UnitTests.Domain.Stubs.Events;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Storage
+namespace Cars.UnitTests.Storage
 {
     public class SessionTests
     {
@@ -31,7 +31,7 @@ namespace EnjoyCQRS.UnitTests.Storage
             var snapshotSerializer = CreateSnapshotSerializer();
             var projectionSerializer = CreateProjectionSerializer();
 
-            var session = new Session(MockHelper.CreateLoggerFactory(MockHelper.GetMockLogger().Object), eventStore, eventPublisher, eventSerializer, snapshotSerializer, projectionSerializer, null, null, null, snapshotStrategy);
+            var session = new Session(new TestLoggerFactory(), eventStore, eventPublisher, eventSerializer, snapshotSerializer, projectionSerializer, null, null, null, snapshotStrategy);
 
             return session;
         };
@@ -76,7 +76,7 @@ namespace EnjoyCQRS.UnitTests.Storage
             var eventUpdateManager = Mock.Of<IEventUpdateManager>();
             var metadataProviders = Mock.Of<IEnumerable<IMetadataProvider>>();
 
-            Action act = () => new Session(MockHelper.CreateLoggerFactory(MockHelper.GetMockLogger().Object), null, eventPublisher, eventSerializer, snapshotSerializer, projectionSerializer, projectionProviderScanner, eventUpdateManager, metadataProviders);
+            Action act = () => new Session(new TestLoggerFactory(), null, eventPublisher, eventSerializer, snapshotSerializer, projectionSerializer, projectionProviderScanner, eventUpdateManager, metadataProviders);
 
             act.ShouldThrowExactly<ArgumentNullException>();
         }
@@ -93,7 +93,7 @@ namespace EnjoyCQRS.UnitTests.Storage
             var eventUpdateManager = Mock.Of<IEventUpdateManager>();
             var metadataProviders = Mock.Of<IEnumerable<IMetadataProvider>>();
 
-            Action act = () => new Session(MockHelper.CreateLoggerFactory(MockHelper.GetMockLogger().Object), eventStore, null, eventSerializer, snapshotSerializer, projectionSerializer, projectionProviderScanner, eventUpdateManager, metadataProviders);
+            Action act = () => new Session(new TestLoggerFactory(), eventStore, null, eventSerializer, snapshotSerializer, projectionSerializer, projectionProviderScanner, eventUpdateManager, metadataProviders);
 
             act.ShouldThrowExactly<ArgumentNullException>();
         }
@@ -127,7 +127,7 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             Func<Task> wrongVersion = async () => await session.AddAsync(stubAggregate1);
 
-            wrongVersion.ShouldThrowExactly<ExpectedVersionException<StubAggregate>>().And.Aggregate.Should().Be(stubAggregate1);
+            AssertionExtensions.Should((object) wrongVersion.ShouldThrowExactly<ExpectedVersionException<StubAggregate>>().And.Aggregate).Be(stubAggregate1);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -181,20 +181,20 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             await session.SaveChangesAsync().ConfigureAwait(false);
 
-            events[0].Should().BeOfType<StubAggregateCreatedEvent>().Which.AggregateId.Should().Be(stubAggregate1.Id);
-            events[0].Should().BeOfType<StubAggregateCreatedEvent>().Which.Name.Should().Be("Walter White");
+            AssertionExtensions.Should((Guid) AssertionExtensions.Should((object) events[0]).BeOfType<StubAggregateCreatedEvent>().Which.AggregateId).Be(stubAggregate1.Id);
+            AssertionExtensions.Should((object) events[0]).BeOfType<StubAggregateCreatedEvent>().Which.Name.Should().Be("Walter White");
 
-            events[1].Should().BeOfType<StubAggregateCreatedEvent>().Which.AggregateId.Should().Be(stubAggregate2.Id);
-            events[1].Should().BeOfType<StubAggregateCreatedEvent>().Which.Name.Should().Be("Heinsenberg");
+            AssertionExtensions.Should((Guid) AssertionExtensions.Should((object) events[1]).BeOfType<StubAggregateCreatedEvent>().Which.AggregateId).Be(stubAggregate2.Id);
+            AssertionExtensions.Should((object) events[1]).BeOfType<StubAggregateCreatedEvent>().Which.Name.Should().Be("Heinsenberg");
 
-            events[2].Should().BeOfType<NameChangedEvent>().Which.AggregateId.Should().Be(stubAggregate1.Id);
-            events[2].Should().BeOfType<NameChangedEvent>().Which.Name.Should().Be("Saul Goodman");
+            AssertionExtensions.Should((Guid) AssertionExtensions.Should((object) events[2]).BeOfType<NameChangedEvent>().Which.AggregateId).Be(stubAggregate1.Id);
+            AssertionExtensions.Should((object) events[2]).BeOfType<NameChangedEvent>().Which.Name.Should().Be("Saul Goodman");
 
-            events[3].Should().BeOfType<StubAggregateRelatedEvent>().Which.AggregateId.Should().Be(stubAggregate2.Id);
-            events[3].Should().BeOfType<StubAggregateRelatedEvent>().Which.StubAggregateId.Should().Be(stubAggregate1.Id);
+            AssertionExtensions.Should((Guid) AssertionExtensions.Should((object) events[3]).BeOfType<StubAggregateRelatedEvent>().Which.AggregateId).Be(stubAggregate2.Id);
+            AssertionExtensions.Should((object) events[3]).BeOfType<StubAggregateRelatedEvent>().Which.StubAggregateId.Should().Be(stubAggregate1.Id);
 
-            events[4].Should().BeOfType<NameChangedEvent>().Which.AggregateId.Should().Be(stubAggregate1.Id);
-            events[4].Should().BeOfType<NameChangedEvent>().Which.Name.Should().Be("Jesse Pinkman");
+            AssertionExtensions.Should((Guid) AssertionExtensions.Should((object) events[4]).BeOfType<NameChangedEvent>().Which.AggregateId).Be(stubAggregate1.Id);
+            AssertionExtensions.Should((object) events[4]).BeOfType<NameChangedEvent>().Which.Name.Should().Be("Jesse Pinkman");
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -223,9 +223,9 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             eventStore.SaveSnapshotMethodCalled.Should().BeTrue();
 
-            var commitedSnapshot = eventStore.Snapshots.First(e => e.AggregateId == stubAggregate.Id);
+            var commitedSnapshot = Enumerable.First(eventStore.Snapshots, e => e.AggregateId == stubAggregate.Id);
 
-            commitedSnapshot.Should().NotBeNull();
+            AssertionExtensions.Should((object) commitedSnapshot).NotBeNull();
 
             var metadata = (IMetadata)_textSerializer.Deserialize<EventSource.Metadata>(commitedSnapshot.SerializedMetadata);
 
@@ -235,8 +235,8 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var snapshot = _textSerializer.Deserialize<StubSnapshotAggregateSnapshot>(commitedSnapshot.SerializedData);
 
-            snapshot.Name.Should().Be(stubAggregate.Name);
-            snapshot.SimpleEntities.Count.Should().Be(stubAggregate.Entities.Count);
+            AssertionExtensions.Should((string) snapshot.Name).Be(stubAggregate.Name);
+            AssertionExtensions.Should((int) snapshot.SimpleEntities.Count).Be(stubAggregate.Entities.Count);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -263,8 +263,8 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             eventStore.GetSnapshotMethodCalled.Should().BeTrue();
 
-            aggregate.Version.Should().Be(3);
-            aggregate.Id.Should().Be(stubAggregate.Id);
+            AssertionExtensions.Should((int) aggregate.Version).Be(3);
+            AssertionExtensions.Should((Guid) aggregate.Id).Be(stubAggregate.Id);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -289,8 +289,8 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var aggregate = await session.GetByIdAsync<StubSnapshotAggregate>(stubAggregate.Id).ConfigureAwait(false);
 
-            aggregate.Name.Should().Be(stubAggregate.Name);
-            aggregate.Entities.Count.Should().Be(stubAggregate.Entities.Count);
+            AssertionExtensions.Should((string) aggregate.Name).Be(stubAggregate.Name);
+            AssertionExtensions.Should((int) aggregate.Entities.Count).Be(stubAggregate.Entities.Count);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -321,7 +321,7 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var stubAggregateFromSnapshot = await session.GetByIdAsync<StubSnapshotAggregate>(stubAggregate.Id).ConfigureAwait(false);
 
-            stubAggregateFromSnapshot.Version.Should().Be(3);
+            AssertionExtensions.Should((int) stubAggregateFromSnapshot.Version).Be(3);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -343,8 +343,8 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var assertion = act.ShouldThrowExactly<AggregateNotFoundException>();
 
-            assertion.Which.AggregateName.Should().Be(typeof(StubAggregate).Name);
-            assertion.Which.AggregateId.Should().Be(newId);
+            AssertionExtensions.Should((string) assertion.Which.AggregateName).Be(typeof(StubAggregate).Name);
+            AssertionExtensions.Should((Guid) assertion.Which.AggregateId).Be(newId);
 
             return Task.CompletedTask;
         }
@@ -513,12 +513,12 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var projectionKey = new InMemoryEventStore.ProjectionKey(stubAggregate1.Id, typeof(StubAggregateProjection).Name);
 
-            eventStore.Projections.ContainsKey(projectionKey).Should().BeTrue();
+            AssertionExtensions.Should((bool) eventStore.Projections.ContainsKey(projectionKey)).BeTrue();
 
             var projection = _textSerializer.Deserialize<StubAggregateProjection>(eventStore.Projections[projectionKey].ToString());
             
-            projection.Id.Should().Be(stubAggregate1.Id);
-            projection.Name.Should().Be(stubAggregate1.Name);
+            AssertionExtensions.Should((Guid) projection.Id).Be(stubAggregate1.Id);
+            AssertionExtensions.Should((string) projection.Name).Be(stubAggregate1.Name);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -542,15 +542,15 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             await session.SaveChangesAsync().ConfigureAwait(false);
 
-            eventStore.Projections.Count.Should().Be(1);
+            AssertionExtensions.Should((int) eventStore.Projections.Count).Be(1);
 
             var projectionKey = new InMemoryEventStore.ProjectionKey(stubAggregate1.Id, typeof(StubAggregateProjection).Name);
-            eventStore.Projections.ContainsKey(projectionKey).Should().BeTrue();
+            AssertionExtensions.Should((bool) eventStore.Projections.ContainsKey(projectionKey)).BeTrue();
 
             var projection = _textSerializer.Deserialize<StubAggregateProjection>(eventStore.Projections[projectionKey].ToString());
 
-            projection.Id.Should().Be(stubAggregate1.Id);
-            projection.Name.Should().Be(stubAggregate1.Name);
+            AssertionExtensions.Should((Guid) projection.Id).Be(stubAggregate1.Id);
+            AssertionExtensions.Should((string) projection.Name).Be(stubAggregate1.Name);
         }
 
         private static ISnapshotStrategy CreateSnapshotStrategy(bool makeSnapshot = true)

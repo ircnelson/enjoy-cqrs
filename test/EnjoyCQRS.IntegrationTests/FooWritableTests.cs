@@ -3,14 +3,14 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource.Storage;
+using Cars.EventSource.Storage;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace EnjoyCQRS.IntegrationTests
+namespace Cars.IntegrationTests
 {
     public class FooWritableTests
     {
@@ -32,7 +32,7 @@ namespace EnjoyCQRS.IntegrationTests
 
             var aggregateId = ExtractAggregateIdFromResponseContent(result);
 
-            eventStore.Events.Count(e => e.AggregateId == aggregateId).Should().Be(1);
+            Enumerable.Count(eventStore.Events, e => e.AggregateId == aggregateId).Should().Be(1);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -66,7 +66,7 @@ namespace EnjoyCQRS.IntegrationTests
 
             var response = await server.CreateRequest("/command/foo/flood/4").PostAsync();
 
-            eventStore.Events.Count.Should().Be(4);
+            AssertionExtensions.Should((int) eventStore.Events.Count).Be(4);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }

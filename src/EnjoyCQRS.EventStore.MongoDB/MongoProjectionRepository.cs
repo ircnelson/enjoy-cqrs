@@ -1,12 +1,10 @@
-using EnjoyCQRS.EventSource.Projections;
-using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.Core;
+using Cars.EventSource.Projections;
 using MongoDB.Bson;
-using Newtonsoft.Json;
+using MongoDB.Driver;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class MongoProjectionRepository : IProjectionRepository, IDisposable
     {
