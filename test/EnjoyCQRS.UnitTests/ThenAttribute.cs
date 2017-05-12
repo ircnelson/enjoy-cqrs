@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace EnjoyCQRS.UnitTests
+namespace Cars.UnitTests
 {
     public class ThenAttribute : FactAttribute
     {

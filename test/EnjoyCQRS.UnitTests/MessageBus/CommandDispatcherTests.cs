@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Commands;
-using EnjoyCQRS.MessageBus;
+using Cars.Commands;
+using Cars.MessageBus;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.MessageBus
+namespace Cars.UnitTests.MessageBus
 {
     public class CommandDispatcherTests
     {

@@ -20,12 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace EnjoyCQRS.Commands
+using System;
+
+namespace Cars.Commands
 {
     /// <summary>
     /// Represent the User Intention (UI) abstraction.
     /// </summary>
     public interface ICommand
     {
+        Guid AggregateId { get; }
     }
 }

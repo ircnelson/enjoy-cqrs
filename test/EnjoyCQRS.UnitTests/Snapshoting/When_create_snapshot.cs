@@ -1,9 +1,9 @@
-﻿using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
+﻿using Cars.EventSource.Snapshots;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Snapshoting
+namespace Cars.UnitTests.Snapshoting
 {
     public class When_create_snapshot
     {
@@ -28,7 +28,7 @@ namespace EnjoyCQRS.UnitTests.Snapshoting
         [Then]
         public void Should_create_an_snapshot_object()
         {
-            _snapshot.Should().BeOfType<StubSnapshotAggregateSnapshot>();
+            AssertionExtensions.Should((object) _snapshot).BeOfType<StubSnapshotAggregateSnapshot>();
         }
 
         [Trait(CategoryName, CategoryValue)]

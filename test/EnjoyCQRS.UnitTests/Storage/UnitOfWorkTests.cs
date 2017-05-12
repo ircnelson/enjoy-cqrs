@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Storage;
+using Cars.EventSource;
+using Cars.EventSource.Storage;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Storage
+namespace Cars.UnitTests.Storage
 {
     public class UnitOfWorkTests
     {

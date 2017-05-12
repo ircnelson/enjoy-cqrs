@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
+using Cars.Testing.Shared.MessageBus;
+using Cars.UnitTests.Domain.Stubs;
+using Cars.UnitTests.Domain.Stubs.Events;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Domain
+namespace Cars.UnitTests.Domain
 {
     public class Registered_event_in_aggregate : AggregateTestFixture<StubAggregate>
     {
@@ -22,14 +22,14 @@ namespace EnjoyCQRS.UnitTests.Domain
         [Then]
         public void Then_some_event_should_be_published()
         {
-            PublishedEvents.Last().Should().BeAssignableTo<NameChangedEvent>();
+            AssertionExtensions.Should((object) Enumerable.Last(PublishedEvents)).BeAssignableTo<NameChangedEvent>();
         }
 
         [Trait(CategoryName, CategoryValue)]
         [Then]
         public void Then_verify_name_property()
         {
-            PublishedEvents.Last().As<NameChangedEvent>().Name.Should().Be(AggregateRoot.Name);
+            AssertionExtensions.As<NameChangedEvent>(Enumerable.Last(PublishedEvents)).Name.Should().Be(AggregateRoot.Name);
         }
     }
 }

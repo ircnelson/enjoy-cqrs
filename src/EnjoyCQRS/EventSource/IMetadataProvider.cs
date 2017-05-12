@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public interface IMetadataProvider
     {

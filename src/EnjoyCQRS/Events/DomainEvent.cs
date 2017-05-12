@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.Events
+namespace Cars.Events
 {
     /// <summary>
     /// Used to represent an Domain event.

@@ -1,12 +1,12 @@
-﻿using EnjoyCQRS.Attributes;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cars.Attributes;
 
-namespace EnjoyCQRS.EventSource.Projections
+namespace Cars.EventSource.Projections
 {
     public class ProjectionProviderAttributeScanner : IProjectionProviderScanner
     {

@@ -1,10 +1,10 @@
 ﻿using System;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
-using EnjoyCQRS.Attributes;
-using EnjoyCQRS.EventSource.Projections;
+using Cars.Attributes;
+using Cars.EventSource;
+using Cars.EventSource.Projections;
+using Cars.UnitTests.Domain.Stubs.Events;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs
+namespace Cars.UnitTests.Domain.Stubs
 {
     [ProjectionProvider(typeof(StubAggregateProjectionProvider))]
     public class StubAggregate : Aggregate

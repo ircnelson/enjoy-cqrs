@@ -1,8 +1,8 @@
-﻿using EnjoyCQRS.ValueObjects;
+﻿using Cars.ValueObjects;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.ValueObjects
+namespace Cars.UnitTests.ValueObjects
 {
     public class ValueObjectTests
     {

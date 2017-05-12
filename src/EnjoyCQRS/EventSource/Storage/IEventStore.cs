@@ -22,13 +22,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using EnjoyCQRS.Collections;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource.Projections;
+using Cars.Events;
+using Cars.EventSource.Projections;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     /// <summary>
     /// Event Store repository abstraction.

@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public abstract class SnapshotAggregate<TSnapshot> : Aggregate, ISnapshotAggregate
         where TSnapshot : Snapshot

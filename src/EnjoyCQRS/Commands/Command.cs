@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.Commands
+namespace Cars.Commands
 {
     /// <summary>
     /// Represent the User Intention (UI) abstraction.

@@ -22,10 +22,10 @@
 
 using System;
 using System.Collections.Generic;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.EventSource.Snapshots;
+using Cars.Core;
+using Cars.EventSource.Snapshots;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public class SnapshotSerializer : ISnapshotSerializer
     {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.Commands;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Domain;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
+using Cars.Commands;
+using Cars.Testing.Shared.MessageBus;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Handlers
+namespace Cars.UnitTests.Handlers
 {
     public class CommandHandlerTests : CommandTestFixture<CommandHandlerTests.CreateStubCommand, CommandHandlerTests.CreateStubCommandHandler, StubAggregate>
     {
@@ -28,14 +26,14 @@ namespace EnjoyCQRS.UnitTests.Handlers
         [Then]
         public void Executed_property_should_be_true()
         {
-            CommandHandler.Executed.Should().Be(true);
+            AssertionExtensions.Should(CommandHandler.Executed).Be(true);
         }
 
         [Trait(CategoryName, CategoryValue)]
         [Then]
         public void Should_pass_the_correct_AggregateId()
         {
-            CommandHandler.AggregateId.Should().Be(_id);
+            AssertionExtensions.Should(CommandHandler.AggregateId).Be(_id);
         }
 
         public class CreateStubCommand : Command

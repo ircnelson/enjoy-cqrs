@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public interface ISerializedEvent
     {

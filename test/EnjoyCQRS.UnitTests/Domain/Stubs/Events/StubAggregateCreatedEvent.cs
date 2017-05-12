@@ -1,8 +1,8 @@
 using System;
-using EnjoyCQRS.Attributes;
-using EnjoyCQRS.Events;
+using Cars.Attributes;
+using Cars.Events;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs.Events
+namespace Cars.UnitTests.Domain.Stubs.Events
 {
     [EventName("StubCreated")]
     public class StubAggregateCreatedEvent : DomainEvent

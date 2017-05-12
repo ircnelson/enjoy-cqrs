@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Exceptions;
-using EnjoyCQRS.UnitTests.Shared;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.EventSource.Exceptions;
+using Cars.Testing.Shared;
+using Cars.Testing.Shared.StubApplication.Domain.BarAggregate;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests
+namespace Cars.UnitTests
 {
     public class EventSerializerTests
     {

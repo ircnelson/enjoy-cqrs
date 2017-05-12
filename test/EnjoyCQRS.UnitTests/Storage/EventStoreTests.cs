@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventSource.Storage;
-using EnjoyCQRS.Logger;
-using EnjoyCQRS.MessageBus;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
-using EnjoyCQRS.UnitTests.Shared;
+using Cars.Events;
+using Cars.EventSource;
+using Cars.EventSource.Projections;
+using Cars.EventSource.Storage;
+using Cars.Logger;
+using Cars.MessageBus;
+using Cars.Testing.Shared;
+using Cars.UnitTests.Domain.Stubs;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Storage
+namespace Cars.UnitTests.Storage
 {
     public class EventStoreTests
     {
@@ -34,18 +33,13 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             _inMemoryDomainEventStore = new InMemoryEventStore();
             
-            var mockLogger = new Mock<ILogger>();
-            mockLogger.Setup(e => e.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
-            mockLogger.Setup(e => e.Log(It.IsAny<LogLevel>(), It.IsAny<string>(), It.IsAny<Exception>()));
-
-            var mockLoggerFactory = new Mock<ILoggerFactory>();
-            mockLoggerFactory.Setup(e => e.Create(It.IsAny<string>())).Returns(mockLogger.Object);
 
             _mockEventPublisher = new Mock<IEventPublisher>();
             _mockEventPublisher.Setup(e => e.PublishAsync(It.IsAny<IEnumerable<IDomainEvent>>())).Returns(Task.CompletedTask);
             
-            var session = new Session(mockLoggerFactory.Object, _inMemoryDomainEventStore, _mockEventPublisher.Object, eventSerializer, snapshotSerializer, projectionSerializer);
-            _repository = new Repository(mockLoggerFactory.Object, session);
+            var loggerFactory = new NoopLoggerFactory();
+            var session = new Session(loggerFactory, _inMemoryDomainEventStore, _mockEventPublisher.Object, eventSerializer, snapshotSerializer, projectionSerializer);
+            _repository = new Repository(loggerFactory, session);
 
             var unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(e => e.CommitAsync())
@@ -71,7 +65,7 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var events = await _inMemoryDomainEventStore.GetAllEventsAsync(testAggregate.Id);
             
-            events.Count().Should().Be(2);
+            Enumerable.Count(events).Should().Be(2);
         }
 
         [Trait(CategoryName, CategoryValue)]
@@ -99,7 +93,7 @@ namespace EnjoyCQRS.UnitTests.Storage
 
             var testAggregate2 = await _repository.GetByIdAsync<StubAggregate>(testAggregate.Id).ConfigureAwait(false);
             
-            testAggregate.Version.Should().Be(testAggregate2.Version);
+            AssertionExtensions.Should((int) testAggregate.Version).Be(testAggregate2.Version);
         }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.TestFramework;
-using EnjoyCQRS.UnitTests.Domain.Stubs;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
+using Cars.Events;
+using Cars.Testing.Shared.MessageBus;
+using Cars.UnitTests.Domain.Stubs;
+using Cars.UnitTests.Domain.Stubs.Events;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Domain
+namespace Cars.UnitTests.Domain
 {
     public class When_aggregate_modify_an_entity : AggregateTestFixture<StubSnapshotAggregate>
     {
@@ -40,14 +40,14 @@ namespace EnjoyCQRS.UnitTests.Domain
         [Then]
         public void Should_be_published_an_event_that_entity_was_disabled()
         {
-            PublishedEvents.Last().Should().BeOfType<ChildDisabledEvent>();
+            AssertionExtensions.Should((object) Enumerable.Last(PublishedEvents)).BeOfType<ChildDisabledEvent>();
         }
 
         [Trait(CategoryName, CategoryValue)]
         [Then]
         public void Should_verify_last_event_properties()
         {
-            var childDisabledEvent = PublishedEvents.Last().As<ChildDisabledEvent>();
+            var childDisabledEvent = AssertionExtensions.As<ChildDisabledEvent>(Enumerable.Last(PublishedEvents));
 
             childDisabledEvent.EntityId.Should().Be(_entity2.EntityId);
         }
@@ -56,7 +56,7 @@ namespace EnjoyCQRS.UnitTests.Domain
         [Then]
         public void Entity2_should_be_disabled()
         {
-            AggregateRoot.Entities[1].Enabled.Should().BeFalse();
+            AssertionExtensions.Should((bool) AggregateRoot.Entities[1].Enabled).BeFalse();
         }
     }
 }

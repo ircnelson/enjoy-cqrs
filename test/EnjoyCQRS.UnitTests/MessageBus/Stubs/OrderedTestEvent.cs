@@ -1,7 +1,7 @@
 ﻿using System;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.UnitTests.MessageBus.Stubs
+namespace Cars.UnitTests.MessageBus.Stubs
 {
     public class OrderedTestEvent : DomainEvent
     {

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using EnjoyCQRS.Collections;
 using FluentAssertions;
 using Xunit;
 
-namespace EnjoyCQRS.UnitTests.Metadata
+namespace Cars.UnitTests.Metadata
 {
     public class MetadataCollectionTests
     {

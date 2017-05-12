@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace EnjoyCQRS.EventSource.Snapshots
+namespace Cars.EventSource.Snapshots
 {
     public interface ISnapshotAggregate : IAggregate
     {

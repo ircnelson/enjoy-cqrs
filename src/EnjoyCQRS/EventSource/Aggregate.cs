@@ -23,10 +23,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EnjoyCQRS.Collections;
-using EnjoyCQRS.Events;
+using Cars.Collections;
+using Cars.Events;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     public abstract class Aggregate : IAggregate
     {

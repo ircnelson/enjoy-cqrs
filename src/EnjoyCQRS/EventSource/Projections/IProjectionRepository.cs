@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EnjoyCQRS.EventSource.Projections
+namespace Cars.EventSource.Projections
 {
     public interface IProjectionRepository
     {

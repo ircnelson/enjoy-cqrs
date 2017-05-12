@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.Core;
-using EnjoyCQRS.EventSource.Projections;
-using EnjoyCQRS.EventStore.MongoDB;
-using EnjoyCQRS.UnitTests.Shared.TestSuit;
+using Cars.Core;
+using Cars.EventSource.Projections;
+using Cars.EventStore.MongoDB;
+using Cars.Testing.Shared.EventStore;
+using Cars.Testing.Shared.StubApplication.Domain.BarAggregate.Projections;
 using FluentAssertions;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Xunit;
-using EnjoyCQRS.UnitTests.Shared.StubApplication.Domain.BarAggregate.Projections;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 
-namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
+namespace Cars.MongoDB.IntegrationTests.EventStore
 {
     public class MongoEventStoreTests : IDisposable
     {
@@ -71,8 +71,8 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
 
             using (var eventStore = new MongoEventStore(_mongoClient, DatabaseName))
             {
-                eventStore.Setttings.EventsCollectionName.Should().Be(defaultSettings.EventsCollectionName);
-                eventStore.Setttings.SnapshotsCollectionName.Should().Be(defaultSettings.SnapshotsCollectionName);
+                AssertionExtensions.Should((string) eventStore.Settings.EventsCollectionName).Be(defaultSettings.EventsCollectionName);
+                AssertionExtensions.Should((string) eventStore.Settings.SnapshotsCollectionName).Be(defaultSettings.SnapshotsCollectionName);
             }
         }
 
@@ -105,8 +105,8 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
 
             using (var eventStore = new MongoEventStore(_mongoClient, DatabaseName, customSettings))
             {
-                eventStore.Setttings.EventsCollectionName.Should().Be(customSettings.EventsCollectionName);
-                eventStore.Setttings.SnapshotsCollectionName.Should().Be(customSettings.SnapshotsCollectionName);
+                AssertionExtensions.Should((string) eventStore.Settings.EventsCollectionName).Be(customSettings.EventsCollectionName);
+                AssertionExtensions.Should((string) eventStore.Settings.SnapshotsCollectionName).Be(customSettings.SnapshotsCollectionName);
             }
         }
 
@@ -118,9 +118,9 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
             {
                 var database = eventStore.Client.GetDatabase(DatabaseName);
 
-                database.Should().NotBeNull();
+                AssertionExtensions.Should((object) database).NotBeNull();
 
-                eventStore.Database.Should().Be(DatabaseName);
+                AssertionExtensions.Should((string) eventStore.Database).Be(DatabaseName);
             }
         }
 
@@ -138,17 +138,17 @@ namespace EnjoyCQRS.MongoDB.IntegrationTests.EventStore
                 {
                     var projection = await projectionRepository.GetAsync<BarProjection>(nameof(BarProjection), aggregate.Id);
 
-                    projection.Id.Should().Be(aggregate.Id);
-                    projection.LastText.Should().Be(aggregate.LastText);
-                    projection.UpdatedAt.ToString("G").Should().Be(aggregate.UpdatedAt.ToString("G"));
-                    projection.Messages.Count.Should().Be(aggregate.Messages.Count);
+                    AssertionExtensions.Should((Guid) projection.Id).Be(aggregate.Id);
+                    AssertionExtensions.Should((string) projection.LastText).Be(aggregate.LastText);
+                    AssertionExtensions.Should((string) projection.UpdatedAt.ToString("G")).Be(aggregate.UpdatedAt.ToString("G"));
+                    AssertionExtensions.Should((int) projection.Messages.Count).Be(aggregate.Messages.Count);
                 }
 
                 using (var projectionRepository = new MongoProjectionRepository<BarProjection>(_mongoClient, DatabaseName))
                 {
                     var projections = await projectionRepository.FindAsync(e => e.Id == aggregate.Id);
 
-                    projections.Count().Should().BeGreaterOrEqualTo(1);
+                    Enumerable.Count(projections).Should().BeGreaterOrEqualTo(1);
                 }
             }
         }

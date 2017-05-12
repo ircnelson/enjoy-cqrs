@@ -22,13 +22,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.EventSource.Snapshots;
-using EnjoyCQRS.EventSource.Storage;
+using Cars.EventSource;
+using Cars.EventSource.Snapshots;
+using Cars.EventSource.Storage;
 
-namespace EnjoyCQRS.Extensions
+namespace Cars.Extensions
 {
     internal static class AggregateExtensions
     {

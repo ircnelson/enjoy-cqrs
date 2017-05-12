@@ -1,4 +1,4 @@
-﻿namespace EnjoyCQRS.EventSource.Projections
+﻿namespace Cars.EventSource.Projections
 {
     public interface IProjectionProvider
     {

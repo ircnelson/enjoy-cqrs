@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using EnjoyCQRS.Events;
+using Cars.Events;
 
-namespace EnjoyCQRS.Collections
+namespace Cars.Collections
 {
     /// <summary>
     /// Represents collection of commited events.

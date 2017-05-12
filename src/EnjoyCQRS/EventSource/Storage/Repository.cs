@@ -22,9 +22,9 @@
 
 using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.Logger;
+using Microsoft.Extensions.Logging;
 
-namespace EnjoyCQRS.EventSource.Storage
+namespace Cars.EventSource.Storage
 {
     public class Repository : IRepository
     {
@@ -33,23 +33,20 @@ namespace EnjoyCQRS.EventSource.Storage
 
         public Repository(ILoggerFactory loggerFactory, ISession session)
         {
-            if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
-            if (session == null) throw new ArgumentNullException(nameof(session));
-
-            _logger = loggerFactory.Create(nameof(Repository));
-            _session = session;
+            _session = session ?? throw new ArgumentNullException(nameof(session));
+            _logger = loggerFactory?.CreateLogger<Repository>() ?? throw new ArgumentNullException(nameof(loggerFactory));
         }
 
         public async Task AddAsync<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
         {
-            _logger.Log(LogLevel.Information, $"Called method: {nameof(Repository)}.{nameof(AddAsync)}.");
+            _logger.LogDebug($"Called method: {nameof(Repository)}.{nameof(AddAsync)}.");
 
             await _session.AddAsync(aggregate);
         }
 
         public async Task<TAggregate> GetByIdAsync<TAggregate>(Guid id) where TAggregate : Aggregate, new()
         {
-            _logger.Log(LogLevel.Information, $"Called method: {nameof(Repository)}.{nameof(GetByIdAsync)}.");
+            _logger.LogDebug($"Called method: {nameof(Repository)}.{nameof(GetByIdAsync)}.");
 
             return await _session.GetByIdAsync<TAggregate>(id).ConfigureAwait(false);
         }

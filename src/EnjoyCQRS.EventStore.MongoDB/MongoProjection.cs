@@ -21,11 +21,11 @@
 // SOFTWARE.
 
 using System;
-using EnjoyCQRS.EventSource.Projections;
-using MongoDB.Bson.Serialization.Attributes;
+using Cars.EventSource.Projections;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class MongoProjection
     {

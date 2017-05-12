@@ -1,10 +1,10 @@
 ﻿using System;
-using EnjoyCQRS.Core;
+using Cars.Core;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class BsonTextSerializer : ITextSerializer
     {

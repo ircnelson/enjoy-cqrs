@@ -87,6 +87,7 @@ Task ("Run-Unit-Tests")
     var projects = GetFiles("./test/**/*Tests.csproj");
 
     CreateDirectory(testResultsDir);
+	var testResultsDirAbs = MakeAbsolute(testResultsDir);
     Context.Information("Found " + projects.Count() + " projects");
 
     foreach (var project in projects)
@@ -108,9 +109,9 @@ Task ("Run-Unit-Tests")
                     tool.DotNetCoreTest(project.FullPath, new DotNetCoreTestSettings {
                         Configuration = configuration,
                         NoBuild = true,
-                        Verbose = false
-                        // ArgumentCustomization = args =>
-                        //     args.Append("-xml").Append(testResultsDir.CombineWithFilePath(project.GetFilenameWithoutExtension()).FullPath + ".xml")
+                        Verbose = false,
+						ArgumentCustomization = args => 
+							args.Append("--logger \"trx;LogFileName=" + testResultsDirAbs.CombineWithFilePath(project.GetFilenameWithoutExtension() + ".xml").FullPath + "\"")
                     });
                 };
 
@@ -119,7 +120,8 @@ Task ("Run-Unit-Tests")
                         testCoverageOutputFilePath,
                         new OpenCoverSettings {
                             ReturnTargetCodeOffset = 0,
-                            ArgumentCustomization = args => args.Append("-mergeoutput")
+							OldStyle = true,
+							MergeOutput = true
                         }
                         .WithFilter("+[EnjoyCQRS*]* -[xunit.*]* -[FluentAssertions*]* -[*Tests]* -[*Tests.Shared]* ")
                         .ExcludeByAttribute("*.ExcludeFromCodeCoverage*")

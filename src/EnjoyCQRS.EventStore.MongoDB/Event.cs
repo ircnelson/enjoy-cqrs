@@ -24,7 +24,7 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace EnjoyCQRS.EventStore.MongoDB
+namespace Cars.EventStore.MongoDB
 {
     public class Event
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EnjoyCQRS.EventSource;
-using EnjoyCQRS.UnitTests.Domain.Stubs.Events;
+using Cars.EventSource;
+using Cars.UnitTests.Domain.Stubs.Events;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs
+namespace Cars.UnitTests.Domain.Stubs
 {
     public class StubSnapshotAggregate : SnapshotAggregate<StubSnapshotAggregateSnapshot>
     {

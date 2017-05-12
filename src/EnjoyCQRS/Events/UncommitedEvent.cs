@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 using System;
-using EnjoyCQRS.EventSource;
+using Cars.EventSource;
 
-namespace EnjoyCQRS.Events
+namespace Cars.Events
 {
     internal class UncommitedEvent : IUncommitedEvent
     {

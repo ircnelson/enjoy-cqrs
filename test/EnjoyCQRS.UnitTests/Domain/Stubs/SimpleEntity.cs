@@ -1,6 +1,6 @@
 using System;
 
-namespace EnjoyCQRS.UnitTests.Domain.Stubs
+namespace Cars.UnitTests.Domain.Stubs
 {
     public class SimpleEntity
     {

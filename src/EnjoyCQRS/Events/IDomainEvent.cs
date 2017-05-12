@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace EnjoyCQRS.Events
+using System;
+
+namespace Cars.Events
 {
     /// <summary>
     /// Used to represent an Domain event.
@@ -29,5 +31,6 @@ namespace EnjoyCQRS.Events
     /// </summary>
     public interface IDomainEvent
     {
+        Guid AggregateId { get; }
     }
 }

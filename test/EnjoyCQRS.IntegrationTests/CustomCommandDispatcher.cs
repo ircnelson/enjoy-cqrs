@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.Commands;
-using EnjoyCQRS.MessageBus;
+using Cars.Commands;
+using Cars.MessageBus;
 
-namespace EnjoyCQRS.IntegrationTests
+namespace Cars.IntegrationTests
 {
     public class CustomCommandDispatcher : ICommandDispatcher
     {
@@ -16,7 +16,7 @@ namespace EnjoyCQRS.IntegrationTests
 
         public async Task DispatchAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
+            var handlerType = typeof(ICommandHandler<>).MakeGenericType(((Object) command).GetType());
 
             var handler = (dynamic) _serviceProvider.GetService(handlerType);
 

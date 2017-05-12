@@ -21,37 +21,33 @@
 // SOFTWARE.
 
 using System;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions.Internal;
 
-namespace EnjoyCQRS.Logger
+namespace Cars.Logger
 {
-    public class NoopLoggerFactory : ILoggerFactory
+    public class NoopLogger : ILogger
     {
-        public class NoopLogger : ILogger
+        private string _name;
+
+        public NoopLogger(string name)
         {
-            private string _name;
-
-            public NoopLogger(string name)
-            {
-                _name = name;
-            }
-
-            public void Log(LogLevel logLevel, string message, Exception exception = null)
-            {
-            }
-
-            public bool IsEnabled(LogLevel logLevel)
-            {
-                return true;
-            }
+            _name = name;
         }
 
-        public void Dispose()
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, 
+            Exception exception, Func<TState, Exception, string> formatter)
         {
         }
 
-        public ILogger Create(string name)
+        public bool IsEnabled(LogLevel logLevel)
         {
-            return new NoopLogger(name);
+            return true;
+        }
+
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            return NullScope.Instance;
         }
     }
 }

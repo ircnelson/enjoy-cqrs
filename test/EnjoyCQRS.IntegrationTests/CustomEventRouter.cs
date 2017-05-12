@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EnjoyCQRS.Events;
-using EnjoyCQRS.MessageBus;
+using Cars.Events;
+using Cars.MessageBus;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EnjoyCQRS.IntegrationTests
+namespace Cars.IntegrationTests
 {
     public class CustomEventRouter : IEventRouter
     {
@@ -17,7 +17,7 @@ namespace EnjoyCQRS.IntegrationTests
 
         public async Task RouteAsync<TEvent>(TEvent @event) where TEvent : IDomainEvent
         {
-            var handlerType = typeof(IEventHandler<>).MakeGenericType(@event.GetType());
+            var handlerType = typeof(IEventHandler<>).MakeGenericType(((Object) @event).GetType());
 
             var handlers = _serviceProvider.GetServices(handlerType);
 

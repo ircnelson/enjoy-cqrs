@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EnjoyCQRS.EventSource
+namespace Cars.EventSource
 {
     /// <summary>
     /// Store the event metadatas.

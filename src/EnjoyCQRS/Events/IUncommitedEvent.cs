@@ -22,7 +22,7 @@
 
 using System;
 
-namespace EnjoyCQRS.Events
+namespace Cars.Events
 {
     public interface IUncommitedEvent
     {

@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace EnjoyCQRS.ValueObjects
+namespace Cars.ValueObjects
 {
     public abstract class ValueObject<TValueObject> : IEquatable<TValueObject> where TValueObject : ValueObject<TValueObject>
     {
